@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class CreateUsersTable extends Migration
 {
@@ -16,10 +17,20 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->char('password',60);
+            $table->string('apellido');
+            $table->string('cedula');
+            $table->string('imagen'
+            );
+            $table->enum('rol', [
+                'admin',
+                'auxiliar'
+            ])->default('auxiliar');
             $table->rememberToken();
             $table->timestamps();
         });
+        $pass=bcrypt('root@hotmail.com');
+        DB::statement("INSERT INTO `users` (`name`,`email`,`password`,`apellido`,`cedula`,`imagen`,`rol`) VALUES ('ROOT','root@hotmail.com','$pass','','12345','hulk.png','admin')");
     }
 
     /**

@@ -11,6 +11,54 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', function () {
+        if (Auth::check())
+        {
+            return view('home');
+        }
+        else
+            return view('auth.login');
+
+    });
+
+
+    Route::get('error', function(){
+        abort(500);
+    });
+
+
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+
+        Route::resource('users', 'UsersController');
+        Route::get('users/{id}/destroy', ['uses' => 'UsersController@destroy', 'as' => 'admin.user.destroy']);
+        Route::get('user/{id}/show', ['uses' => 'UsersController@show', 'as' => 'admin.user.show']);
+        Route::post('user/{id}/update', ['uses' => 'UsersController@update', 'as' => 'admin.users.update']);
+        Route::get('users/{id}/pass', ['uses' => 'UsersController@pass', 'as' => 'admin.user.pass']);
+        Route::post('users/{id}/pass1', ['uses' => 'UsersController@pass1', 'as' => 'admin.user.pass1']);
+
+        Route::resource('equipos', 'EquiposController');
+        Route::get('equipos/{id}/destroy', ['uses' => 'EquiposController@destroy', 'as' => 'admin.equipos.destroy']);
+        Route::get('equipos/{id}/show', ['uses' => 'EquiposController@show', 'as' => 'admin.equipos.show']);
+        Route::get('equipos/{id}/edit', ['uses' => 'EquiposController@edit', 'as' => 'admin.equipos.edit']);
+        Route::post('equipos/{id}/update', ['uses' => 'EquiposController@update', 'as' => 'admin.equipos.update']);
+
+        Route::resource('profesores', 'ProfesoresController');
+        Route::get('profesores/{id}/destroy', ['uses' => 'ProfesoresController@destroy', 'as' => 'admin.profesores.destroy']);
+        Route::get('profesores/{id}/show', ['uses' => 'ProfesoresController@show', 'as' => 'admin.profesores.show']);
+        Route::post('profesores/{id}/update', ['uses' => 'ProfesoresController@update', 'as' => 'admin.profesores.update']);
+        Route::get('profesores/find',['uses' => 'ProfesoresController@find','as' => 'admin.profesores.find']);
+
+        Route::resource('prestamos', 'PrestamosController');
+        Route::get('prestamos/{id}/destroy', ['uses' => 'PrestamosController@destroy', 'as' => 'admin.prestamos.destroy']);
+        Route::get('prestamos/{id}/show', ['uses' => 'PrestamosController@show', 'as' => 'admin.prestamos.show']);
+        Route::get('prestamos/{id}/edit', ['uses' => 'PrestamosController@edit', 'as' => 'admin.prestamos.edit']);
+        Route::post('prestamos/{id}/update', ['uses' => 'PrestamosController@update', 'as' => 'admin.prestamos.update']);
+        Route::post('prestamos/find', ['uses' => 'PrestamosController@find', 'as' => 'admin.prestamos.find']);
+        Route::post('prestamos/find1', ['uses' => 'PrestamosController@find1', 'as' => 'admin.prestamos.find1']);
+
+    });
+
+    Route::auth();
+
+
