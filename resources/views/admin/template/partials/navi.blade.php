@@ -60,7 +60,7 @@
                                 <li><a href="{{url('admin/prestamos')}}">Listar Prestamos</a></li>
                                 <li><a href="{{url('admin/prestamos')}}">Eliminar Prestamos</a></li>
                                     @if(Auth::user()->rol=="auxiliar")
-                                    <li><a href="{{url('admin/profesores')}}">Profesores</a></li>
+                                    <li><a href="{{url('admin/estudiantes')}}">Estudiantes</a></li>
                                     @endif
 
                             </ul>
@@ -70,16 +70,16 @@
                         <li class="col-sm-4">
                             <ul>
                                 <li class="dropdown-header">Profesores</li>
-                                    <li><a href="{{url('admin/profesores/create')}}">Crear Profesores</a></li>
-                                    <li><a href="{{url('admin/profesores')}}">Listar Profesores</a></li>
-                                    <li><a href="{{url('admin/profesores')}}">Eliminar Profesores</a></li>
+                                    <li><a href="{{url('admin/estudiantes/create')}}">Crear Estudiantes</a></li>
+                                    <li><a href="{{url('admin/estudiantes')}}">Listar Estudiantes</a></li>
+                                    <li><a href="{{url('admin/estudiantes')}}">Eliminar Estudiantes</a></li>
                                 <li class="divider"></li>
                                 @endif
                                 @if(Auth::user()->rol=="admin")
-                                <li class="dropdown-header">Equipos</li>
-                                    <li><a href="{{url('admin/equipos/create')}}">Crear Equipos</a></li>
-                                    <li><a href="{{url('admin/equipos')}}">Listar Equipos</a></li>
-                                    <li><a href="{{url('admin/equipos')}}">Eliminar quipos</a></li>
+                                <li class="dropdown-header">Instrumentos</li>
+                                    <li><a href="{{url('admin/instrumentos/create')}}">Crear Instrumentos</a></li>
+                                    <li><a href="{{url('admin/instrumentos')}}">Listar Instrumentos</a></li>
+                                    <li><a href="{{url('admin/instrumentos')}}">Eliminar Instrumentos/a></li>
                             </ul>
 
                         </li>
