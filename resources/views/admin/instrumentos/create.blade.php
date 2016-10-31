@@ -5,12 +5,12 @@
 	<section class="section-login">
 
 		<div class="panel-heading">
-			<h3 class="panel-tittle">Registrar Equipo</h3>
+			<h3 class="panel-tittle">Registrar Instrumento</h3>
 		</div>
 
 			<div class="panel-registro">
 				<form class="form-horizontal" role="form" method="POST"
-                      action="{{ route('admin.equipos.store') }}">
+                      action="{{ route('admin.instrumentos.store') }}">
                     {!! csrf_field() !!}
 
   				<div class="form-group">
@@ -18,18 +18,21 @@
     				<input type="text" class="form-control" name="nombre" placeholder="Introduce el Nombre" required>
   				</div>
   				<div class="form-group">
-  				    <label for="apellido">Placa</label>
-    				<input type="text" class="form-control" name="placa" placeholder="Introduce la Placa" required>
+  				    <label for="cantidad">Cantidad</label>
+    				<input type="text" class="form-control" name="cantidad" placeholder="Introduce la Cantidad" required>
   				</div>
 					<div class="form-group">
 						<select name="tipo" class="form-control">
-							<option value="pc">PC</option>
-							<option value="vb">VideoBeam</option>
-							<option value="apuntador">Apuntador</option>
+							<option value="pc">Analógico</option>
+							<option value="vb">Caíman</option>
+							<option value="apuntador">Digital</option>
+							<option value="apuntador">Hembra de 2MM</option>
+							<option value="apuntador">Macho de 4MM</option>
+							
 						</select>
 					</div>
   				<div class="form-group">
-  				    <label for="cedula">Descripcion</label>
+  				    <label for="descripcion">Descripción</label>
     				<textarea class="form-control" rows="5" name="descripcion" required></textarea>
   				</div>
   				<div class="form-group">

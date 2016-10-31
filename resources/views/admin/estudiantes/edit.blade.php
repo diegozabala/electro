@@ -5,30 +5,25 @@
 <section class="section-login">
 
     <div class="panel-heading">
-        <h3 class="panel-tittle">Editar Docentes</h3>
+        <h3 class="panel-tittle">Editar Estudiantes</h3>
     </div>
 
     <div class="panel-registro">
         <form class="form-horizontal" role="form" method="POST"
-              action="{{ route('admin.profesores.update',$profesor->id) }}" enctype="multipart/form-data">
+              action="{{ route('admin.estudiantes.update',$estudiante->id) }}" enctype="multipart/form-data">
             {!! csrf_field() !!}
 
             <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" class="form-control" name="nombre" value="{{$profesor->nombre_profesor}}" required>
+                <input type="text" class="form-control" name="nombre" value="{{$estudiante->nombre_estudiante}}" required>
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido</label>
-                <input type="text" class="form-control" name="apellido" value="{{$profesor->apellido_profesor}}" required>
+                <input type="text" class="form-control" name="apellido" value="{{$estudiante->apellido_estudiante}}" required>
             </div>
             <div class="form-group">
-                <label for="cedula">Cedula</label>
-                <input type="text" class="form-control" name="cedula" value="{{$profesor->cedula}}" required>
-            </div>
-            <div class="form-group">
-                <label for="numero">Número Celular</label>
-                <input type="text" class="form-control" name="numero" value="{{$profesor->numero}}"
-                       required>
+                <label for="numero_documento">Número de Documento</label>
+                <input type="text" class="form-control" name="numero_documento" value="{{$estudiante->numero_documento}}" required>
             </div>
             <div class="form-group">
                 <label for="Imagen">Imagen</label>
@@ -42,7 +37,5 @@
 
         </form>
     </div>
-
-
 </section>
 @include ('admin.template.partials.footer')

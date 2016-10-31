@@ -3,11 +3,11 @@
 	<section class="section-login">
 
 			<div class="panel-heading">
-			<h3 class="panel-tittle"> Lista de Profesores</h3>
+			<h3 class="panel-tittle"> Lista de Estudiantes</h3>
 				
 		</div>
 		<div class="panel-registro-table">
-		<a href="{{route('admin.profesores.create')}}" class="btn btn-success">Registrar un Docente</a>
+		<a href="{{route('admin.estudiantes.create')}}" class="btn btn-success">Registrar un Docente</a>
 
 			<!--<form  role="form" method="get" class="navbar-form pull-right"
 			action="{{route('admin.profesores.find')}}">
@@ -25,9 +25,8 @@
       			<tr>
         			<th class="active">Nombre</th>
         			<th class="active">Apellido</th>
-        			<th class="active">Cedula</th>
-					<th class="active">Número Celular</th>
-                    <th class="active">Facultad</th>
+        			<th class="active">Número de Documento</th>
+                    <th class="active">Programa</th>
 					@if(Auth::user()->rol=='admin')
         				<th class="active">ACTION</th>
 					@endif
@@ -35,22 +34,21 @@
     		</thead>
 
     		<tbody>
-    			@foreach($profesores as $profesor)
+    			@foreach($estudiantes as $estudiante)
     				<tr>
-    					<td>{{$profesor->nombre_profesor}}</td>
-    					<td>{{$profesor->apellido_profesor}}</td>
-    					<td>{{$profesor->cedula}}</td>
-                        <td>{{$profesor->numero}}</td>
-                        <td>{{$profesor->nombre}}</td>
+    					<td>{{$estudiante->nombre_estudiante}}</td>
+    					<td>{{$estudiante->apellido_estudiante}}</td>
+    					<td>{{$estudiante->numero_documento}}</td>
+                        <td>{{$estudiante->nombre}}</td>
 						@if(Auth::user()->rol=='admin')
     					<td>
-    						<a href="{{ route('admin.profesores.destroy',$profesor->id) }}" class="btn btn-danger"
+    						<a href="{{ route('admin.estudiantes.destroy',$estudiante->id) }}" class="btn btn-danger"
                             onclick="return confirm('¿Seguro desea eliminarlo?')">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
 
-							<a href="{{route('admin.profesores.show',$profesor->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-							<a href="{{route('admin.profesores.edit',$profesor->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
+							<a href="{{route('admin.estudiantes.show',$profesor->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+							<a href="{{route('admin.estudiantes.edit',$profesor->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
 
     					</td>
 							@endif

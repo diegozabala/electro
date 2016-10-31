@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Equipo;
+use App\Instrumento;
 use App\Http\Requests;
 use Laracasts\Flash\Flash;
 use Illuminate\Support\Facades\DB;
 
 
 
-class EquiposController extends Controller
+class InstrumentosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +19,9 @@ class EquiposController extends Controller
      */
     public function index()
     {
-        $equipos = Equipo::orderBy('nombre','asc')->paginate(10);
+        $instrumentos = Instrumento::orderBy('nombre','asc')->paginate(10);
        
-        return view ('admin/equipos/index')  -> with('equipos',$equipos);
+        return view ('admin/instrumentos/index')  -> with('instrumentos',$instrumentos);
     }
 
     /**
@@ -31,7 +31,7 @@ class EquiposController extends Controller
      */
     public function create()
     {
-        return view('admin.equipos.create');
+        return view('admin.instrumentos.create');
     }
 
     /**
@@ -42,14 +42,14 @@ class EquiposController extends Controller
      */
     public function store(Request $request)
     {
-        $equipos = new Equipo($request->all());
-        $equipos->nombre = $request->nombre;
-        $equipos->placa = $request->placa;
-        $equipos->descripcion = $request->descripcion;
-        $equipos->tipo=$request->tipo;
-        $equipos->estado="disponible";
-        $equipos->save();
-        return redirect()->route ('admin.equipos.index');
+        $instrumentos = new Instrumento($request->all());
+        $instrumentos->nombre = $request->nombre;
+        $instrumentos->cantidad = $request->cantidad;
+        $instrumentos->descripcion = $request->descripcion;
+        $instrumentos->tipo=$request->tipo;
+        $instrumentos->estado="disponible";
+        $instrumentos->save();
+        return redirect()->route ('admin.instrumentos.index');
 
     }
 
@@ -61,8 +61,8 @@ class EquiposController extends Controller
      */
     public function show($id)
     {
-        $equipo=Equipo::find($id);
-        return view('admin.equipos.show')->with('equipo',$equipo);
+        $instrumento=Instrumento::find($id);
+        return view('admin.instrumentos.show')->with('instrumento',$instrumento);
     }
 
     /**
@@ -73,8 +73,8 @@ class EquiposController extends Controller
      */
     public function edit($id)
     {
-        $equipo=Equipo::find($id);
-        return view('admin.equipos.edit')->with('equipos',$equipo);
+        $instrumento=Instrumento::find($id);
+        return view('admin.instrumentos.edit')->with('instrumentos',$instrumento);
     }
 
     /**
@@ -86,14 +86,13 @@ class EquiposController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $equipos = Equipo::find($id);
-        $equipos->nombre = $request->nombre;
-        $equipos->placa = $request->placa;
-        $equipos->descripcion = $request->descripcion;
-       
-        $equipos->estado="disponible";
-        $equipos->save();
-        return redirect()->route ('admin.equipos.index');
+        $instrumentos = Instrumento::find($id);
+        $instrumentos->nombre = $request->nombre;
+        $instrumentos->cantidad = $request->cantidad;
+        $instrumentos->descripcion = $request->descripcion;
+        $instrumentos->estado="disponible";
+        $instrumentos->save();
+        return redirect()->route ('admin.instrumentos.index');
     }
 
     /**
@@ -104,8 +103,8 @@ class EquiposController extends Controller
      */
     public function destroy($id)
     {
-        $equipo = Equipo::find($id);
-        $equipo -> delete();
-        return redirect(route('admin.equipos.index'));
+        $instrumento = Instrumento::find($id);
+        $instrumento -> delete();
+        return redirect(route('admin.instrumentos.index'));
     }
 }

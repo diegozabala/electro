@@ -3,7 +3,7 @@
 <section class="section-login">
 
     <div class="panel-heading">
-        <h3 class="panel-tittle"> Lista de Profesores</h3>
+        <h3 class="panel-tittle"> Lista de Estudiantes</h3>
 
     </div>
     <div class="panel-registro-table">
@@ -13,23 +13,21 @@
             <tr>
                 <th class="active">Nombre</th>
                 <th class="active">Apellido</th>
-                <th class="active">Cedula</th>
-                <th class="active">Número Celular</th>
-                <th class="active">Facultad</th>
+                <th class="active">Número De Documento</th>
+                <th class="active">Programa</th>
                 <th class="active">ACTION</th>
             </tr>
             </thead>
 
             <tbody>
-            @foreach($profesores as $profesor)
+            @foreach($estudiantes as $estudiante)
                 <tr>
-                    <td>{{$profesor->nombre_profesor}}</td>
-                    <td>{{$profesor->apellido_profesor}}</td>
-                    <td>{{$profesor->cedula}}</td>
-                    <td>{{$profesor->numero}}</td>
-                    <td>{{$profesor->nombre}}</td>
+                    <td>{{$estudiante->nombre_estudiante}}</td>
+                    <td>{{$estudiante->apellido_estudiante}}</td>
+                    <td>{{$estudiante->numero_documento}}</td>
+                    <td>{{$estudiante->nombre}}</td>
                     <td>
-                        <a href="{{route('admin.profesores.show',$profesor->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        <a href="{{route('admin.estudiantes.show',$estudiante->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                     </td>
                 </tr>
             @endforeach

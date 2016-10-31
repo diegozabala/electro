@@ -15,9 +15,10 @@ class AddPrestamosTable extends Migration
         Schema::create('prestamos', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('profesores_id');
-            $table->integer('equipos_id');
+            $table->integer('estudiante_id');
+            $table->integer('instrumento_id');
             $table->integer('user_id');
+            $table->string('estado');
             $table->string('adicion');
             $table->string('observaciones')->nullable();
             $table->timestamps();

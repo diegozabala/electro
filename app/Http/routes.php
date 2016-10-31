@@ -37,17 +37,17 @@
         Route::get('users/{id}/pass', ['uses' => 'UsersController@pass', 'as' => 'admin.user.pass']);
         Route::post('users/{id}/pass1', ['uses' => 'UsersController@pass1', 'as' => 'admin.user.pass1']);
 
-        Route::resource('equipos', 'EquiposController');
-        Route::get('equipos/{id}/destroy', ['uses' => 'EquiposController@destroy', 'as' => 'admin.equipos.destroy']);
-        Route::get('equipos/{id}/show', ['uses' => 'EquiposController@show', 'as' => 'admin.equipos.show']);
-        Route::get('equipos/{id}/edit', ['uses' => 'EquiposController@edit', 'as' => 'admin.equipos.edit']);
-        Route::post('equipos/{id}/update', ['uses' => 'EquiposController@update', 'as' => 'admin.equipos.update']);
+        Route::resource('instrumentos', 'InstrumentosController');
+        Route::get('instrumentos/{id}/destroy', ['uses' => 'InstrumentosController@destroy', 'as' => 'admin.instrumentos.destroy']);
+        Route::get('instrumentos/{id}/show', ['uses' => 'InstrumentosController@show', 'as' => 'admin.instrumentos.show']);
+        Route::get('instrumentos/{id}/edit', ['uses' => 'InstrumentosController@edit', 'as' => 'admin.instrumentos.edit']);
+        Route::post('instrumentos/{id}/update', ['uses' => 'InstrumentosController@update', 'as' => 'admin.instrumentos.update']);
 
-        Route::resource('profesores', 'ProfesoresController');
-        Route::get('profesores/{id}/destroy', ['uses' => 'ProfesoresController@destroy', 'as' => 'admin.profesores.destroy']);
-        Route::get('profesores/{id}/show', ['uses' => 'ProfesoresController@show', 'as' => 'admin.profesores.show']);
-        Route::post('profesores/{id}/update', ['uses' => 'ProfesoresController@update', 'as' => 'admin.profesores.update']);
-        Route::get('profesores/find',['uses' => 'ProfesoresController@find','as' => 'admin.profesores.find']);
+        Route::resource('estudiantes', 'EstudiantesController');
+        Route::get('estudiantes/{id}/destroy', ['uses' => 'EstudiantesController@destroy', 'as' => 'admin.estudiantes.destroy']);
+        Route::get('estudiantes/{id}/show', ['uses' => 'EstudiantesController@show', 'as' => 'admin.estudiantes.show']);
+        Route::post('estudiantes/{id}/update', ['uses' => 'EstudiantesController@update', 'as' => 'admin.estudiantes.update']);
+        Route::get('estudiantes/find',['uses' => 'EstudiantesController@find','as' => 'admin.estudiantes.find']);
 
         Route::resource('prestamos', 'PrestamosController');
         Route::get('prestamos/{id}/destroy', ['uses' => 'PrestamosController@destroy', 'as' => 'admin.prestamos.destroy']);

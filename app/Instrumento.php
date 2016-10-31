@@ -4,17 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 /**
-
  * @property mixed  nombre
- * @property mixed placa
+ * @property mixed cantidad
  * @property String descripcion
  * @property string estado
  */
 
-class Equipo extends Model
+class Instrumento extends Model
 {
-    protected $table="equipos";
-    protected $fillable=['nombre','placa','descripcion','estado','tipo'
+    protected $table="instrumentos";
+    protected $fillable=['nombre','cantidad','descripcion','estado','tipo',
     ];
     
     public function prestamos(){

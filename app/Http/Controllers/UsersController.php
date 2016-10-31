@@ -33,14 +33,14 @@ class UsersController extends Controller
             $path=public_path()."/images/users/";
             $file->move($path,$name);
 
-            $estudiante= new User($request->all());
-            $estudiante->rol=$request->rol;
-            $estudiante->imagen=$name;
-            $estudiante->name=$request->name;
-            $estudiante->apellido=$request->apellido;
-            $estudiante->cedula=$request->cedula;
-            $estudiante->password=bcrypt($request->password);
-            $estudiante->save();
+            $usuario = new User($request->all());
+            $usuario->rol=$request->rol;
+            $usuario->imagen=$name;
+            $usuario->name=$request->name;
+            $usuario->apellido=$request->apellido;
+            $usuario->cedula=$request->cedula;
+            $usuario->password=bcrypt($request->password);
+            $usuario->save();
         }
         return redirect()->route('admin.users.index');
         
@@ -62,18 +62,13 @@ class UsersController extends Controller
     public function update(Request $request,$id){
         $user=User::find($id);
 
-
-
             $user->name=$request->name;
             $user->apellido=$request->apellido;
             $user->email=$request->email;
             $user->cedula=$request->cedula;
 
-
             $user->save();
             return redirect()->route('admin.users.index');
-
-
 
     }
     public function pass($id){

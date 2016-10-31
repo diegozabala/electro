@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Equipo;
-use App\Profesor;
+use App\Instrumento;
+use App\Estudiante;
 use App\Prestamo;
 use App\User;
 use Illuminate\Http\Request;
@@ -20,26 +20,26 @@ class PrestamosController extends Controller
      */
     public function index()
     {
-        $prestamos= DB::table('profesores')
-            ->join('prestamos','profesores.id','=','prestamos.profesores_id')
-            ->join('equipos','equipos.id','=','prestamos.equipos_id')
+        $prestamos= DB::table('estudiantes')
+            ->join('prestamos','estudiantes.id','=','prestamos.estudiante_id')
+            ->join('equipos','instrumentos.id','=','prestamos.instrumento_id')
             ->join('users','users.id','=','prestamos.user_id')
-            ->select('prestamos.*','profesores.nombre_profesor','profesores.apellido_profesor','profesores.cedula'
-                ,'equipos.nombre','users.name','users.apellido')->get();
+            ->select('prestamos.*','estudiantes.nombre_estudiante','estudiantes.apellido_estudiante','estudiantes.numero_documento'
+                ,'instrumentos.nombre','users.name','users.apellido')->get();
         
         //-------------equipos prestados-----------//
-        $portatiles=DB::table('equipos')
-            ->where('estado','ocupado')->where('nombre','LIKE','P%')->count();
+        $osciloscopios=DB::table('instrumentos')
+            ->where('estado','ocupado')->where('nombre','LIKE','O%')->count();
 
-        $vb=DB::table('equipos')
-            ->where('estado','ocupado')->where('tipo','VB')->count();
+        $bananas=DB::table('instrumentos')
+            ->where('estado','ocupado')->where('tipo','Caiman')->count();
 
-        $apun=DB::table('equipos')
-            ->where('estado','ocupado')->where('nombre','LIKE','A%')->count();
+        $multimetros=DB::table('instrumentos')
+            ->where('estado','ocupado')->where('nombre','LIKE','M%')->count();
 
 
-        return view('admin/prestamos/index')->with('prestamos',$prestamos)->with('portatiles',$portatiles)
-            ->with('vb',$vb)->with('apun',$apun);
+        return view('admin/prestamos/index')->with('prestamos',$prestamos)->with('osciloscopios',$osciloscopios)
+            ->with('bananas',$bananas)->with('multimetros',$multimetros);
 
     }
 
@@ -62,7 +62,7 @@ class PrestamosController extends Controller
     public function store(Request $request)
     {
 
-        $equipo = new Equipo();
+        $instrumento = new Instrumento();
         $prestamos = new Prestamo();
         $nombres = $request->prestamos;
         $adicion=$request->adicion;
@@ -78,52 +78,52 @@ class PrestamosController extends Controller
         }
 
         $tamaño=sizeof($nombres);
-        $equipo1= new Equipo();
+        $instrumento1= new Instrumento();
         $user= User::where('nombre','=',$request->nombre);
         for ($i=0; $i < $tamaño; $i++){
             if ($tamaño==1){
                 $prestamos = new Prestamo();
-                $equipo = Equipo::where('nombre','=',$nombres[$i])->get();
-                $equipo1= $equipo[0];
-                if ($equipo1->tipo=="EX"){
-                    $equipo1->estado="disponible";
+                $instrumento = Instrumento::where('nombre','=',$nombres[$i])->get();
+                $instrumento1= $instrumento[0];
+                if ($instrumento1->tipo=="EX"){
+                    $instrumento1->estado="disponible";
                 }
                 else{
-                    $equipo1 ->estado="ocupado";
+                    $instrumento1 ->estado="ocupado";
                 }
 
 
                 $prestamos->adicion=$var;
-                $prestamos->equipos_id=$equipo[0]["id"];
+                $prestamos->instrumento_id=$instrumento[0]["id"];
                 $prestamos->observaciones=$request->observaciones;
-                $prestamos->profesores_id=$request->codigo;
+                $prestamos->estudiante_id=$request->codigo;
                 $prestamos->user_id=$request->nombre;
-                $equipo1->save();
+                $instrumento1->save();
                 $prestamos->save();
                 $prestamos=null;
                 $equipo=null;
-                $equipo1=null;
+                $instrumento1=null;
             }
             else{
                 $prestamos = new Prestamo();
-                $equipo = Equipo::where('nombre','=',$nombres[$i])->get();
-                $equipo1= $equipo[0];
-                if ($equipo->tipo=="EX"){
-                    $equipo->estado="disponible";
+                $instrumento = Instrumento::where('nombre','=',$nombres[$i])->get();
+                $instrumento1= $instrumento[0];
+                if ($instrumento->tipo=="EX"){
+                    $instrumento->estado="disponible";
                 }
                 else{
-                    $equipo1->estado="ocupado";
+                    $instrumento1->estado="ocupado";
                 }
                 $prestamos->adicion=$var;
-                $prestamos->equipos_id=$equipo[0]["id"];
+                $prestamos->instrumento_id=$equipo[0]["id"];
                 $prestamos->observaciones=$request->observaciones;
-                $prestamos->profesores_id=$request->codigo;
+                $prestamos->estudiante_id=$request->codigo;
                 $prestamos->user_id=$request->nombre;
-                $equipo1->save();
+                $instrumento1->save();
                 $prestamos->save();
                 $prestamos=null;
-                $equipo=null;
-                $equipo1=null;
+                $instrumento=null;
+                $instrumento1=null;
                 $var="";
             }
             
@@ -153,8 +153,8 @@ class PrestamosController extends Controller
     public function edit($id)
     {
         $prestamo=Prestamo::find($id);
-        $profe=Profesor::find($prestamo->profesores_id);
-        return view('admin/prestamos/edit')->with('prestamo',$prestamo)->with('profesor',$profe);
+        $estudiante = Estudiante::find($prestamo->estudiante_id);
+        return view('admin/prestamos/edit')->with('prestamo',$prestamo)->with('estudiante',$estudiante);
     }
 
     /**
@@ -196,9 +196,9 @@ class PrestamosController extends Controller
      */
    public function destroy($id){
        $prestamos=Prestamo::find($id);
-       $equipo=Equipo::find($prestamos->equipos_id);
-       $equipo->estado="disponible";
-       $equipo->save();
+       $instrumento=Instrumento::find($prestamos->instrumento_id);
+       $instrumento->estado="disponible";
+       $instrumento->save();
        $prestamos->delete();
        return redirect()->route('admin.prestamos.index');
 
@@ -207,12 +207,12 @@ class PrestamosController extends Controller
     public function find(Request $request){
         $nombre=$request->codigo;
 
-            $equipos = Equipo::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
-            $profesor = Profesor::where('cedula', '=', $nombre)->get();
-        if (count($profesor)==0){
+            $instrumentos = Instrumento::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
+            $estudiante = Estudiante::where('numero_documento', '=', $nombre)->get();
+        if (count($estudiante)==0){
             return view('errors.503');
             }
-        return view('admin/prestamos/find')->with('profesor',$profesor)->with('equipos',$equipos);
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
 
 
         
@@ -221,21 +221,18 @@ class PrestamosController extends Controller
     public function find1(Request $request){
         $nombre=$request->nombre;
 
-        $equipos = Equipo::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
-        $profesor = Profesor::where('nombre_profesor', 'LIKE', '%'.$nombre.'%')->get();
-        if (count($profesor)==0){
+        $instrumentos = Instrumento::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
+        $estudiante = Estudiante::where('nombre_estudiante', 'LIKE', '%'.$nombre.'%')->get();
+        if (count($estudiante)==0){
             return view('errors.503');
         }
-        elseif (count($profesor)>1){
+        elseif (count($estudiante)>1){
             
             
-            return view('admin/prestamos/profes')->with('profesores',$profesor);
+            return view('admin/prestamos/profes')->with('estudiante',$estudiante);
         }
 
-        return view('admin/prestamos/find')->with('profesor',$profesor)->with('equipos',$equipos);
-
-
-
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
 
     }
     

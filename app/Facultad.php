@@ -12,7 +12,7 @@ class Facultad extends Model
         'id','nombre',
     ];
 
-    public function profesores(){
-        return $this->hasMany('App\Profesor');
+    public function carreras(){
+        return $this->hasMany('App\Carrera');
     }
 }

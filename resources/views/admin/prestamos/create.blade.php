@@ -14,8 +14,8 @@
               action="{{ route('admin.prestamos.find') }}">
             {!! csrf_field() !!}
             <div class="form-group ">
-                <label for="nombre">Código profesor</label>
-                <input type="text" class="form-control" name="codigo" placeholder="Introduce el Código del profesor" required>
+                <label for="codigo">Código Estudiante</label>
+                <input type="text" class="form-control" name="codigo" placeholder="Introduce el Código del Estudiante" required>
             </div>
             <div class="form-group">
                 <button class="btn btn-success">Insertar</button>
@@ -26,8 +26,8 @@
               action="{{ route('admin.prestamos.find1') }}">
             {!! csrf_field() !!}
             <div class="form-group ">
-                <label for="nombre">Nombre profesor</label>
-                <input type="text" class="form-control" name="nombre" placeholder="Introduce el Nombre del profesor" required>
+                <label for="nombre">Nombre Estudiante</label>
+                <input type="text" class="form-control" name="nombre" placeholder="Introduce el Nombre del Estudiante" required>
             </div>
             <div class="form-group">
                 <button class="btn btn-success">Insertar</button>
