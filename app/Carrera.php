@@ -9,7 +9,7 @@ class Carrera extends Model
     protected $table="carreras";
 
     protected  $fillable=[
-        'id','nombre','facultad_id',
+        'id','facultad_id','nombre',
     ];
 
     public function estudiantes(){

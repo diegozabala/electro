@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class AddEstudiantesTable extends Migration
 {
@@ -18,8 +19,6 @@ class AddEstudiantesTable extends Migration
             $table->string("nombre_estudiante");
             $table->string("apellido_estudiante");
             $table->string('imagen');
-            $table->integer('carrera_id')->unsigned();
-            $table->foreign('carrera_id')->references('id')->on('carreras');
             $table->timestamps();
         });
     }
