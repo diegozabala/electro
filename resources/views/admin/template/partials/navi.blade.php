@@ -69,7 +69,7 @@
                         @if(Auth::user()->rol=="admin")
                         <li class="col-sm-4">
                             <ul>
-                                <li class="dropdown-header">Profesores</li>
+                                <li class="dropdown-header">Estudiantes</li>
                                     <li><a href="{{url('admin/estudiantes/create')}}">Crear Estudiantes</a></li>
                                     <li><a href="{{url('admin/estudiantes')}}">Listar Estudiantes</a></li>
                                     <li><a href="{{url('admin/estudiantes')}}">Eliminar Estudiantes</a></li>

@@ -69,14 +69,14 @@
                         @if(Auth::user()->rol=="admin")
                             <li class="col-sm-4">
                                 <ul>
-                                    <li class="dropdown-header">Profesores</li>
+                                    <li class="dropdown-header">Estudiantes</li>
                                     <li><a href="{{url('admin/estudiantes/create')}}">Crear Estudiantes</a></li>
                                     <li><a href="{{url('admin/estudiantes')}}">Listar Estudiantes</a></li>
                                     <li><a href="{{url('admin/estudiantes')}}">Eliminar Estudiantes</a></li>
                                     <li class="divider"></li>
                                     @endif
                                     @if(Auth::user()->rol=="admin")
-                                        <li class="dropdown-header">Equipos</li>
+                                        <li class="dropdown-header">Instrumentos</li>
                                         <li><a href="{{url('admin/instrumentos/create')}}">Crear Instrumentos</a></li>
                                         <li><a href="{{url('admin/instrumentos')}}">Listar Instrumentos</a></li>
                                         <li><a href="{{url('admin/instrumentos')}}">Eliminar Instrumentos</a></li>

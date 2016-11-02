@@ -8,7 +8,7 @@
 
     <div class="panel-registro">
         <?php
-        $direccion_imagen="images/estudiantes /".$estudiante->imagen;
+        $direccion_imagen="images/estudiantes/".$estudiante->imagen;
         ?>
         <div class="imagen">
             <div class="form-group container-fluid" >

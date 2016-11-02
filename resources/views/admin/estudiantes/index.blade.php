@@ -7,19 +7,8 @@
 				
 		</div>
 		<div class="panel-registro-table">
-		<a href="{{route('admin.estudiantes.create')}}" class="btn btn-success">Registrar un Docente</a>
-
-			<!--<form  role="form" method="get" class="navbar-form pull-right"
-			action="{{route('admin.profesores.find')}}">
-
-                <div class="input-group">
-                    <span class="input-group-addon  glyphicon glyphicon-search" id="basic-addon1"></span>
-                    <input type="text" name="buscar" class="form-control" placeholder="Buscar" aria-describedby="basic-addon1">
-                </div>
-                <button type="submit" class="hidden"></button>
-
-			</form>
-			-->
+		<a href="{{route('admin.estudiantes.create')}}" class="btn btn-success">Registrar un Estudiante</a>
+        
 		<table class="table table-responsive table-striped">
 			<thead>
       			<tr>
@@ -39,7 +28,6 @@
     					<td>{{$estudiante->nombre_estudiante}}</td>
     					<td>{{$estudiante->apellido_estudiante}}</td>
     					<td>{{$estudiante->numero_documento}}</td>
-                        <td>{{$estudiante->nombre}}</td>
 						@if(Auth::user()->rol=='admin')
     					<td>
     						<a href="{{ route('admin.estudiantes.destroy',$estudiante->id) }}" class="btn btn-danger"
@@ -47,8 +35,8 @@
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </a>
 
-							<a href="{{route('admin.estudiantes.show',$profesor->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-							<a href="{{route('admin.estudiantes.edit',$profesor->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
+							<a href="{{route('admin.estudiantes.show',$estudiante->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+							<a href="{{route('admin.estudiantes.edit',$estudiante->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></a>
 
     					</td>
 							@endif

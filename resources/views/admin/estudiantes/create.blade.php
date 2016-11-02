@@ -27,8 +27,8 @@
   				</div>
 
 				<div class="form-group">
-					<label for="sel1">Seleccione el Programa</label>
-					<select class="form-control" name="programa">
+					<label for="carrera">Seleccione el Programa</label>
+					<select class="form-control" name="carrera">
 
 						@foreach($carreras as $carrera)
 							<option value="{{$carrera->nombre}}">{{$carrera->nombre}}</option>

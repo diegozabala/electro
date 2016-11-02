@@ -19,6 +19,7 @@ class AddEstudiantesTable extends Migration
             $table->string("nombre_estudiante");
             $table->string("apellido_estudiante");
             $table->string('imagen');
+            $table->string('carrera_id');
             $table->timestamps();
         });
     }

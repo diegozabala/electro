@@ -3,7 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Facultad;
 use Illuminate\Http\Request;
-use App\Profesor;
+use App\Estudiante;
+use App\Carrera;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 
@@ -34,7 +35,7 @@ class EstudiantesController extends Controller
      */
     public function create()
     {
-        $carreras = Carreras::all();
+        $carreras = Carrera::all();
         return view('admin.estudiantes.create')->with('carreras',$carreras);
 
     }
