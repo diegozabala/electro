@@ -28,6 +28,11 @@
     					<td>{{$estudiante->nombre_estudiante}}</td>
     					<td>{{$estudiante->apellido_estudiante}}</td>
     					<td>{{$estudiante->numero_documento}}</td>
+                            @foreach($carreras as $carrera)
+                                @if($estudiante->carrera_id == $carrera->id)
+                                    <td>{{$carrera->nombre}}</td>
+                                @endif
+                            @endforeach
 						@if(Auth::user()->rol=='admin')
     					<td>
     						<a href="{{ route('admin.estudiantes.destroy',$estudiante->id) }}" class="btn btn-danger"

@@ -15,11 +15,11 @@
 
   				<div class="form-group">
     				<label for="nombre">Nombre</label>
-    				<input type="text" class="form-control" name="nombre" placeholder="Introduce el Nombre" required>
+    				<input type="text" class="form-control" name="nombre_estudiante" placeholder="Introduce el Nombre" required>
   				</div>
   				<div class="form-group">
   				    <label for="apellido">Apellido</label>
-    				<input type="text" class="form-control" name="apellido" placeholder="Introduce el Apellido"required>
+    				<input type="text" class="form-control" name="apellido_estudiante" placeholder="Introduce el Apellido"required>
   				</div>
   				<div class="form-group">
   				    <label for="numero_documento">Cédula</label>

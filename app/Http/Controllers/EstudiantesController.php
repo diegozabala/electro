@@ -20,12 +20,12 @@ class EstudiantesController extends Controller
      */
     public function index()
     {
-        
+        $carreras = Carrera::all();
         $estudiantes =DB::table('estudiantes')->join('carreras','estudiantes.carrera_id','=','carreras.id')
             ->select('estudiantes.*','carreras.nombre')->
             orderBy('nombre_estudiante','asc')->get();
 
-        return view ('admin/estudiantes/index') -> with ('estudiantes',$estudiantes);
+        return view ('admin/estudiantes/index') -> with ('estudiantes',$estudiantes) -> with ('carreras', $carreras);
     }
 
     /**
@@ -93,7 +93,7 @@ class EstudiantesController extends Controller
     {
         $carreras=Carrera::all();
         $estudiante=Estudiante::find($id);
-        return view('admin.estudiantes.edit')->with('estudiante',$estudiantes)->with('carreras',$carreras);
+        return view('admin.estudiantes.edit')->with('estudiante',$estudiante)->with('carreras',$carreras);
 
     }
 
