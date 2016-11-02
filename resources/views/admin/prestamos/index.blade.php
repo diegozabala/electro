@@ -15,11 +15,11 @@
 
         </div>
         <div class="form-group col-md-3">
-            <label >Bananas Caiman: {{$caiman}}</label>
+            <label >Bananas Caiman: {{$bananas}}</label>
 
         </div>
         <div class="form-group col-md-3">
-            <label >Multimetros: {{$M}}</label>
+            <label >Multimetros: {{$multimetros}}</label>
         </div>
 
         <table class="table table-responsive table-striped">

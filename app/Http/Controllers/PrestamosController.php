@@ -22,12 +22,12 @@ class PrestamosController extends Controller
     {
         $prestamos= DB::table('estudiantes')
             ->join('prestamos','estudiantes.id','=','prestamos.estudiante_id')
-            ->join('equipos','instrumentos.id','=','prestamos.instrumento_id')
+            ->join('instrumentos','instrumentos.id','=','prestamos.instrumento_id')
             ->join('users','users.id','=','prestamos.user_id')
             ->select('prestamos.*','estudiantes.nombre_estudiante','estudiantes.apellido_estudiante','estudiantes.numero_documento'
                 ,'instrumentos.nombre','users.name','users.apellido')->get();
         
-        //-------------equipos prestados-----------//
+        //-------------instrumentos prestados-----------//
         $osciloscopios=DB::table('instrumentos')
             ->where('estado','ocupado')->where('nombre','LIKE','O%')->count();
 
@@ -101,7 +101,7 @@ class PrestamosController extends Controller
                 $instrumento1->save();
                 $prestamos->save();
                 $prestamos=null;
-                $equipo=null;
+                $instrumento=null;
                 $instrumento1=null;
             }
             else{
@@ -115,7 +115,7 @@ class PrestamosController extends Controller
                     $instrumento1->estado="ocupado";
                 }
                 $prestamos->adicion=$var;
-                $prestamos->instrumento_id=$equipo[0]["id"];
+                $prestamos->instrumento_id=$instrumento[0]["id"];
                 $prestamos->observaciones=$request->observaciones;
                 $prestamos->estudiante_id=$request->codigo;
                 $prestamos->user_id=$request->nombre;
