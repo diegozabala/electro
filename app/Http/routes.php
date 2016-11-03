@@ -43,6 +43,12 @@
         Route::get('instrumentos/{id}/edit', ['uses' => 'InstrumentosController@edit', 'as' => 'admin.instrumentos.edit']);
         Route::post('instrumentos/{id}/update', ['uses' => 'InstrumentosController@update', 'as' => 'admin.instrumentos.update']);
 
+        Route::resource('componentes', 'ComponentesController');
+        Route::get('componentes/{id}/destroy', ['uses' => 'ComponentesController@destroy', 'as' => 'admin.componentes.destroy']);
+        Route::get('componentes/{id}/show', ['uses' => 'ComponentesController@show', 'as' => 'admin.componentes.show']);
+        Route::get('componentes{id}/edit', ['uses' => 'ComponentesController@edit', 'as' => 'admin.componentes.edit']);
+        Route::post('componentes/{id}/update', ['uses' => 'ComponentesController@update', 'as' => 'admin.componentes.update']);
+
         Route::resource('estudiantes', 'EstudiantesController');
         Route::get('estudiantes/{id}/destroy', ['uses' => 'EstudiantesController@destroy', 'as' => 'admin.estudiantes.destroy']);
         Route::get('estudiantes/{id}/show', ['uses' => 'EstudiantesController@show', 'as' => 'admin.estudiantes.show']);

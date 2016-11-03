@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer cantidad
  * @property String descripcion
  * @property string estado
+ * @property string referencia
  */
 
-class Instrumento extends Model
+class Componente extends Model
 {
-    protected $table="instrumentos";
-    protected $fillable=['nombre','cantidad','descripcion','estado','tipo',
+    protected $table="componentes";
+    protected $fillable=['nombre','cantidad','descripcion','estado','referencia',
     ];
     
     public function prestamos(){

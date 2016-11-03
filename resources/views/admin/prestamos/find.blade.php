@@ -23,7 +23,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <ul class="list-group">
-                        <li class="list-group-item text-center">{{$profesor[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
+                        <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
                     </ul>
 
 

@@ -80,6 +80,12 @@
                                         <li><a href="{{url('admin/instrumentos/create')}}">Crear Instrumentos</a></li>
                                         <li><a href="{{url('admin/instrumentos')}}">Listar Instrumentos</a></li>
                                         <li><a href="{{url('admin/instrumentos')}}">Eliminar Instrumentos</a></li>
+                                        <li class="divider"></li>
+
+                                        <li class="dropdown-header">Componentes</li>
+                                        <li><a href="{{url('admin/componentes/create')}}">Crear Componentes</a></li>
+                                        <li><a href="{{url('admin/componentes')}}">Listar Componentes</a></li>
+                                        <li><a href="{{url('admin/componentes')}}">Eliminar Componentes</a></li>
                                 </ul>
 
                             </li>

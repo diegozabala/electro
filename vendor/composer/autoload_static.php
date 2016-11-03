@@ -266,10 +266,11 @@ class ComposerStaticInite4ba6db2bec191fb64525a169b8f7638
 
     public static $classMap = array (
         'AddCarrerasTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_31_214425_add_carreras_table.php',
-        'AddEquiposTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_22_194049_add_equipos_table.php',
+        'AddComponentesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_181911_add_componentes_table.php',
+        'AddEstudiantesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_22_19505_add_estudiantes_table.php',
         'AddFacultadesTable' => __DIR__ . '/../..' . '/database/migrations/2016_05_12_1834_add_facultades_table.php',
+        'AddInstrumentosTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_22_194049_add_instrumentos_table.php',
         'AddPrestamosTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_22_202216_add_prestamos_table.php',
-        'AddProfesoresTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_22_19505_add_profesores_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
