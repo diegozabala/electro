@@ -63,6 +63,74 @@
                         <input type="hidden" class="form-control" name="codigo"
                                value="{{$estudiante[0]->id}}" >
                     </div>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+<script src="~/plugins/jquery/js/jquery-3.1.0.js"></script>    
+<script src="~/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        
+        
+        <div class="col-md-12">
+        <h4>Bootstrap Snipp for Datatable</h4>
+        <div class="table-responsive">
+
+                
+              <table id="mytable" class="table table-bordred table-striped">
+                   
+                   <thead>
+                
+                    <th>Seleccionar</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Delete</th>
+                   </thead>
+    <tbody>
+    
+    <tr>
+    <td><input type="checkbox" class="checkthis" /></td>
+    <td>Mohsin</td>
+    <td>Irshad</td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    </tr>
+    
+    </tbody>
+        
+</table>
+               
+            </div>
+            
+        </div>
+    </div>
+</div>
+    
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
+      </div>
+          <div class="modal-body">
+       
+       <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
+       
+      </div>
+        <div class="modal-footer ">
+        <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+      </div>
+        </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+
+
+
+
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                     <div class="form-group">
                         <label for="observaciones">Observaciones</label>
                         <textarea class="form-control" name="observaciones" cols="7"></textarea>
