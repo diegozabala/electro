@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Instrumento;
+use App\Componente;
 use App\Estudiante;
 use App\Prestamo;
 use App\User;
@@ -208,11 +209,12 @@ class PrestamosController extends Controller
         $nombre=$request->codigo;
 
             $instrumentos = Instrumento::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
+            $componentes = Componente::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
             $estudiante = Estudiante::where('numero_documento', '=', $nombre)->get();
         if (count($estudiante)==0){
             return view('errors.503');
             }
-        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
 
 
         

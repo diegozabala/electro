@@ -2,8 +2,6 @@
 
 <section class="section-login">
 
-  <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/prestamos.css')}}">
-
     <div class="panel-heading">
         <h3 class="panel-tittle">Visualizar Estudiante</h3>
     </div>
@@ -67,162 +65,112 @@
                     </div>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-12">
-                            <h4>Equipos</h4>
-                                <div class="table-responsive"> 
-
-                                    <table class="table table-responsive table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th class="active">Seleccionar</th>
-                                                <th class="active">Nombre</th>
-                                                <th class="active">Cantidad</th>
-                                                <th class="active">Agregar</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            @foreach($instrumentos as $instrumento)
-                                                <tr>
-                                                    <td><input type="checkbox" class="checkthis" /></td>
-                                                    <td>{{$instrumento->nombre}}</td>
-                                                    <td data-name="sel">
-                                                        <select name="cantidad_equipos" class="selectpicker" data-style="btn-primary" data-width="auto">
-                                                            <?php
-                                                                for ($i = 0;$i< $instrumento->cantidad; $i ++){
-                                                                    $cantidades[$i] = $i+1;
-                                                                }  
-                                                            ?>
-                                                            @foreach($cantidades as $num)
-                                                                <option>{{$num}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                        <td>
-                                                            <p data-placement="top" data-toggle="tooltip" title="Delete">
-                                                                <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
-                                                                    <span class="glyphicon glyphicon-trash">
-                                                                    </span>
-                                                                </button>
-                                                            </p>
-                                                        </td>             
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>                                
-                            </div>
-                        </div>
-                    </div>
-                        
-                    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                    <h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
-                                </div>
-                                <div class="modal-body">                           
-                                    <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
-                                </div>
-                                <div class="modal-footer ">
-                                    <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
-                                </div>
-                            </div>
-                    <!-- /.modal-content --> 
-                        </div>
-                      <!-- /.modal-dialog --> 
-                    </div>
-
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-<script type="text/javascript">
-    $(".option").click(function(){
-        $( this ).find( 'span' ).toggleClass( 'inactive' );
-        $( this ).toggleClass('active');
-        
-    });
-
-    $( "#btn-modal" ).click(function(){
-        $( "#summary-list" ).empty();
-        
-        $( ".option" ).each(function() {
-          if( ! $( this ).children().hasClass( 'inactive' ))
-            $( "#summary-list" ).append( "<li>" + $( this ).text() + "</li>" );
-
-        });
-        
-        if( $( "#summary-list" ).children().length == 0 )
-            $( "#summary-list" ).append( "<li>No options selected</li>" );
-        
-    });
-
-    $( "#btn-reset" ).click( function(){
-        $( ".option" ).each( function(){
-            $( this ).children().addClass( 'inactive' );
-            $( this ).removeClass( 'active' );
-
-        });
-    });
-</script>
-
 <div class="form-group">
     <div class="row col-list">
         <div class="col-md-4 t1">
             <div class="col-head text-center">
-                <span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span>
-                <h2>Col List #1</h2>
+                <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
+                <h2>Equipos</h2>
             </div>
             <ul class="list-unstyled">
-             <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #1 #1</p>
-             </li>
-             <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #1 #2</p>
-             </li>
-             <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #1 #3</p>
-             </li>
+                @foreach($instrumentos as $instrumento)
+                    <li>
+                        <p class="servicio">
+                            <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>{{$instrumento->nombre}}
+                            <select name="cantidad_equipos" class="selectpicker" data-style="btn-primary" data-width="auto">
+                                <?php
+                                    for ($i = 0;$i< $instrumento->cantidad; $i ++){
+                                        $cantidades[$i] = $i+1;
+                                    }  
+                                ?>
+                                @foreach($cantidades as $num)
+                                    <option>{{$num}}</option>
+                                @endforeach
+                            </select>
+                        </p>
+                    </li>
+                @endforeach
             </ul>
         </div>
         <div class="col-md-4 t2">
             <div class="col-head text-center">
-                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                <h2>Col List #2</h2>
+                <span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
+                <h2>Componentes</h2>
             </div>
             <ul class="list-unstyled">
-             <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #2 #1</p>
-             </li>
-             <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #2 #2</p>
-             </li>
+                @foreach($componentes as $componente)
+                    <li>
+                        <p class="servicio">
+                            <?php
+                                for ($i = 0;$i< $componente->cantidad; $i ++){
+                                    $cantidades[$i] = $i+1;
+                                }  
+                            ?>
+                            <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1" ></span>{{$componente->nombre}}
+                            <select name="cantidad_componentes" class="selectpicker" data-style="btn-primary" data-width="auto">
+                                @foreach($cantidades as $num)
+                                    <option>{{$num}}</option>
+                                @endforeach
+                            </select>
+                        </p>
+                    </li>
+                @endforeach
             </ul>
         </div>
         <div class="col-md-4 t3">
             <div class="col-head text-center">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                <h2>Col List #3</h2>
+                <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                <h2>Paquetes</h2>
             </div>
             <ul class="list-unstyled">
              <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #3 #1</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>OGF</p>
              </li>
              <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #3 #2</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>OFM</p>
              </li>
              <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #3 #3</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>DMA</p>
              </li>
              <li>
-                <p class="option"><span class="glyphicon glyphicon-ok inactive" aria-hidden="true"></span>Option #3 #4</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>ACD</p>
              </li>
             </ul>
         </div>
     </div>
-    <hr /> 
+    <hr />
+    <div class="text-right">
+        <h4 class="pull-left">Total: <span id="uym-price">0</span></h4>
+        <!-- Button trigger modal -->
+        <button type="button" id="btn-reset" class="btn btn-default btn-lg">
+          Desmarcar Todo
+        </button>
+        <!-- Button trigger modal -->
+        <button type="button" id="btn-modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          Crear Prestamo
+        </button>
+    </div>  
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <!--textarea id="textarea-list" class="col-md-12"></textarea-->
+        <ul id="summary-list">
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                     <div class="form-group">
@@ -240,6 +188,5 @@
                     </div>
                 </form>
     </div>
-
 </section>
 @include('admin.template.partials.footer')
