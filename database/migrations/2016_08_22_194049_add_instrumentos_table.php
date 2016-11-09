@@ -26,8 +26,8 @@ class AddInstrumentosTable extends Migration
         DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Osciloscopio',22,'Digital','para ver señales digitales','disponible')");
         DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Multimetro',19,'Digital','Medir corriente','disponible')");
         DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Multimetro',15,'Analógico','Medir corriente','disponible')");
-        DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Generador de señales',8,'Digital','Generar señales','disponible')");
-        DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Generador de señales',11,'Analogico','Generar señales','disponible')");
+        DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Generador',8,'Digital','Generar señales','disponible')");
+        DB::statement("INSERT INTO `instrumentos` (`nombre`,`cantidad`,`tipo`,`descripcion`,`estado`) VALUES ('Generador',11,'Analogico','Generar señales','disponible')");
 
     }
 

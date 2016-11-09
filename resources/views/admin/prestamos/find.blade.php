@@ -17,52 +17,16 @@
         </div>
         </div>
 
-                <form class="form-horizontal" role="form" method="POST"
-                      action="{{ route('admin.prestamos.store') }}">
-                    {!! csrf_field() !!}
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <form class="form-horizontal" role="form" method="POST"
+              action="{{ route('admin.prestamos.store') }}">
+            {!! csrf_field() !!}
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                    <ul class="list-group">
-                        <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
-                    </ul>
+            <ul class="list-group">
+                <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
+            </ul>
+  
 
-
-                    <select multiple class="selectpicker col-lg-4" name="prestamos[]" size="12" >
-                        @foreach($instrumentos as $instrumento)
-                            @if($instrumento->tipo=="O")
-                            <option>{{$instrumento->nombre}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <select multiple class="selectpicker col-lg-4" name="prestamos[]" size="12">
-                        @foreach($instrumentos as $instrumento)
-                            @if($instrumento->tipo=="M")
-                                <option>{{$instrumento->nombre}}</option>
-                                @endif
-                        @endforeach
-                    </select>
-                    <select multiple class="selectpicker col-lg-4 " name="prestamos[]" size="12" >
-                        @foreach($instrumentos as $instrumento)
-                            @if($instrumento->tipo=="Caiman"  || $instrumento->tipo=="O")
-                                <option>{{$instrumento->nombre}}</option>
-                                @endif
-                        @endforeach
-                    </select>
-
-                    <div class="col-lg-12">
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Osciloscopio">Osciloscopio</label>
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Multimetro">Multimetro</label>
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Bananas Caiman">Bananas Caiman</label>
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Bananas Macho 4MM">Bananas Macho 4MM</label>
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Bananas Hembra 2MM">Bananas Hembra 2MM</label>
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Generador de Señales">Generador de Señales</label>
-                        <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Fuente">Fuente</label>
-
-                    </div>
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" name="codigo"
-                               value="{{$estudiante[0]->id}}" >
-                    </div>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 <div class="form-group">
@@ -76,8 +40,9 @@
                 @foreach($instrumentos as $instrumento)
                     <li>
                         <p class="servicio">
-                            <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>{{$instrumento->nombre}}
-                            <select name="cantidad_equipos" class="selectpicker" data-style="btn-primary" data-width="auto">
+                            <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>
+                            <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
+                            <select id="cantidad_equipos" class="selectpicker" data-style="btn-primary" data-width="auto">
                                 <?php
                                     for ($i = 0;$i< $instrumento->cantidad; $i ++){
                                         $cantidades[$i] = $i+1;
@@ -106,8 +71,9 @@
                                     $cantidades[$i] = $i+1;
                                 }  
                             ?>
-                            <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1" ></span>{{$componente->nombre}}
-                            <select name="cantidad_componentes" class="selectpicker" data-style="btn-primary" data-width="auto">
+                            <span id="nombre_componente" class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1" ></span>
+                            <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">{{$componente->nombre . ' ' .$componente->referencia}}</label>
+                            <select name="cantidad_componentes" id="cantidad_componentes" class="selectpicker" data-style="btn-primary" data-width="auto">
                                 @foreach($cantidades as $num)
                                     <option>{{$num}}</option>
                                 @endforeach
@@ -124,16 +90,20 @@
             </div>
             <ul class="list-unstyled">
              <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>OGF</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
+                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">OGF</label></p>
              </li>
              <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>OFM</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
+                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">OFM</label></p>
              </li>
              <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>DMA</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
+                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">DMA</label></p>
              </li>
              <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>ACD</p>
+                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
+                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">ACD</label></p>
              </li>
             </ul>
         </div>
@@ -158,7 +128,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">EQUIPOS SELECCIONADOS</h4>
       </div>
       <div class="modal-body">
         <!--textarea id="textarea-list" class="col-md-12"></textarea-->
@@ -166,8 +136,8 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar Cambios</button>
       </div>
     </div>
   </div>

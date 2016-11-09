@@ -28,11 +28,23 @@ jQuery(document).ready(function($){
 	});
 
 	$("#btn-modal").click(function(){
-		$("#summary-list").empty();$("#servs-list").val("");
-		$("#servs-total").text($("#uym-price").text()+"€");$(".servicio").each(function(){
-			var txta=$("#servs-list").val();if(!$(this).children().hasClass('inactivo')){
-				$("#summary-list").append("<li>"+$(this).text()+"</li>");$("#servs-list").val(txta+"• "+$(this).text()+"\n");
-			}});
+		$("#summary-list").empty();
+		$("#servs-list").val("");
+		$("#servs-list-equipos").val("");
+		$("#servs-list-componentes").val("");
+
+		$("#servs-total").text($("#uym-price").text()+"€");
+		var posicion=document.getElementById('cantidad_equipos').options.selectedIndex;
+
+		$(".servicio").each(function(){
+			var txta=$("#servs-list").val();
+			if(!$(this).children().hasClass('inactivo')){
+				$("#summary-list").append("<li>"+$("#nombre_Equipo").text()+" --> "+document.getElementById('cantidad_equipos').options[posicion].text+"</li>");
+				//$("#servs-list").val(txta+"• "+$("#nombre_Equipo").text()+" --> "+document.getElementById('cantidad_equipos').options[posicion].text+"\n");
+				//$("#summary-list").append("<li>"+$(this).text()+"</li>");
+				$("#servs-list").val(txta+"• "+$(this).text()+"\n");
+		}});
+
 		if($("#summary-list").children().length==0){
 			$("#summary-list").append("<li>Sin opciones seleccionadas</li>");
 			$("#servs-list").val("• Sin opciones seleccionadas\n");
