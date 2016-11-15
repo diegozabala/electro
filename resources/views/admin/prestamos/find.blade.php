@@ -31,64 +31,67 @@
 
 <div class="form-group">
     <div class="row col-list">
-        <div class="col-md-4 t1">
+
+        <div class="col-md-5 t1">
             <div class="col-head text-center">
                 <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
                 <h2>Equipos</h2>
             </div>
+
             <ul class="list-unstyled">
                 @foreach($instrumentos as $instrumento)
-                    <li>
-                        <p class="servicio">
-                            <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>
-                            <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
-                            <input type="number" class="form-control" id="cantidad_Equipos" name="cantidad_Equipos" placeholder="--->">
-                        </p>
-                        <label >Max: {{$instrumento->cantidad}}</label>
-                    </li>
+                    <label><input type="checkbox" value="">
+                        <?php
+                            for ($i = 0;$i< $instrumento->cantidad; $i ++){
+                                $cantidades[$i] = $i+1;
+                            }  
+                        ?> 
+                        <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
+
+                        <select type="number">
+                            @foreach($cantidades as $num)
+                                <option>{{$num}}</option>
+                            @endforeach 
+                        </select>
+                    </label>
                 @endforeach
             </ul>
         </div>
-        <div class="col-md-4 t2">
+
+        <div class="col-md-5 t2">
             <div class="col-head text-center">
                 <span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
                 <h2>Componentes</h2>
             </div>
             <ul class="list-unstyled">
                 @foreach($componentes as $componente)
-                    <li>
-                        <p class="servicio">
-                            <span id="nombre_componente" class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1" ></span>
-                            <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">{{$componente->nombre . ' ' .$componente->referencia}}</label>
-                            <input type="number" class="form-control" name="cantidad_componentes" placeholder="--->">
-                        </p>
-                        <label >Max: {{$componente->cantidad}}</label>
-                    </li>
+                    <label><input type="checkbox" value="">
+                        <?php
+                            for ($i = 0;$i< $componente->cantidad; $i ++){
+                                $cantidades[$i] = $i+1;
+                            }  
+                        ?> 
+                        <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$componente->nombre . ' ' . $componente->referencia}}</label>
+
+                        <select type="number">
+                            @foreach($cantidades as $num)
+                                <option>{{$num}}</option>
+                            @endforeach 
+                        </select>
+                    </label>
                 @endforeach
             </ul>
         </div>
-        <div class="col-md-4 t3">
+        <div class="col-md-2 t3">
             <div class="col-head text-center">
                 <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
-                <h2>Paquetes</h2>
+                <h2>Paquete</h2>
             </div>
             <ul class="list-unstyled">
-             <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
-                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">OGF</label></p>
-             </li>
-             <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
-                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">OFM</label></p>
-             </li>
-             <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
-                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">DMA</label></p>
-             </li>
-             <li>
-                <p class="servicio"><span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="3"></span>
-                    <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">ACD</label></p>
-             </li>
+                <label><input type="checkbox" value="">OGF</label>
+                <label><input type="checkbox" value="">OFM</label>
+                <label><input type="checkbox" value="">DMA</label>
+                <label><input type="checkbox" value="">ACD</label>
             </ul>
         </div>
     </div>
