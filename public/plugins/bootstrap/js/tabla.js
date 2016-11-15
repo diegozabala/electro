@@ -34,14 +34,12 @@ jQuery(document).ready(function($){
 		$("#servs-list-componentes").val("");
 
 		$("#servs-total").text($("#uym-price").text()+"€");
-		var posicion=document.getElementById('cantidad_equipos').options.selectedIndex;
 
 		$(".servicio").each(function(){
 			var txta=$("#servs-list").val();
 			if(!$(this).children().hasClass('inactivo')){
-				$("#summary-list").append("<li>"+$("#nombre_Equipo").text()+" --> "+document.getElementById('cantidad_equipos').options[posicion].text+"</li>");
-				//$("#servs-list").val(txta+"• "+$("#nombre_Equipo").text()+" --> "+document.getElementById('cantidad_equipos').options[posicion].text+"\n");
-				//$("#summary-list").append("<li>"+$(this).text()+"</li>");
+
+				$("#summary-list").append("<li>"+$(this).text + document.getElementById("cantidad_Equipos").value + "</li>");
 				$("#servs-list").val(txta+"• "+$(this).text()+"\n");
 		}});
 
@@ -50,7 +48,6 @@ jQuery(document).ready(function($){
 			$("#servs-list").val("• Sin opciones seleccionadas\n");
 		}
 
-		$("#servs-list").val($("#servs-list").val()+"\nTOTAL ESTIMADO: "+$("#uym-price").text()+"€\n");
 	});
 
 	$("#btn-reset").click(function(){

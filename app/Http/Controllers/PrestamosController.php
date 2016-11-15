@@ -63,6 +63,9 @@ class PrestamosController extends Controller
     public function store(Request $request)
     {
 
+        dd($request->$equipos_seleccionados);
+
+/*
         $instrumento = new Instrumento();
         $prestamos = new Prestamo();
         $nombres = $request->prestamos;
@@ -130,7 +133,7 @@ class PrestamosController extends Controller
             
         }
         return redirect()->route('admin.prestamos.index');
-
+*/
 
     }
 

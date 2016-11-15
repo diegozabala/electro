@@ -8,7 +8,7 @@
 
     <div class="panel-registro">
         <?php
-        $direccion_imagen="images/estudiantes /".$estudiante[0]->imagen;
+            $direccion_imagen="images/estudiantes /".$estudiante[0]->imagen;
         ?>
         <div class="imagen">
         <div class="form-group container-fluid" >
@@ -42,17 +42,9 @@
                         <p class="servicio">
                             <span class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1"></span>
                             <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
-                            <select id="cantidad_equipos" class="selectpicker" data-style="btn-primary" data-width="auto">
-                                <?php
-                                    for ($i = 0;$i< $instrumento->cantidad; $i ++){
-                                        $cantidades[$i] = $i+1;
-                                    }  
-                                ?>
-                                @foreach($cantidades as $num)
-                                    <option>{{$num}}</option>
-                                @endforeach
-                            </select>
+                            <input type="number" class="form-control" id="cantidad_Equipos" name="cantidad_Equipos" placeholder="--->">
                         </p>
+                        <label >Max: {{$instrumento->cantidad}}</label>
                     </li>
                 @endforeach
             </ul>
@@ -66,19 +58,11 @@
                 @foreach($componentes as $componente)
                     <li>
                         <p class="servicio">
-                            <?php
-                                for ($i = 0;$i< $componente->cantidad; $i ++){
-                                    $cantidades[$i] = $i+1;
-                                }  
-                            ?>
                             <span id="nombre_componente" class="glyphicon glyphicon-ok inactivo" aria-hidden="true" data-price="1" ></span>
                             <label name="nombre_Componente" id="nombre_Componente" for="nombre_Componente">{{$componente->nombre . ' ' .$componente->referencia}}</label>
-                            <select name="cantidad_componentes" id="cantidad_componentes" class="selectpicker" data-style="btn-primary" data-width="auto">
-                                @foreach($cantidades as $num)
-                                    <option>{{$num}}</option>
-                                @endforeach
-                            </select>
+                            <input type="number" class="form-control" name="cantidad_componentes" placeholder="--->">
                         </p>
+                        <label >Max: {{$componente->cantidad}}</label>
                     </li>
                 @endforeach
             </ul>
@@ -111,14 +95,6 @@
     <hr />
     <div class="text-right">
         <h4 class="pull-left">Total: <span id="uym-price">0</span></h4>
-        <!-- Button trigger modal -->
-        <button type="button" id="btn-reset" class="btn btn-default btn-lg">
-          Desmarcar Todo
-        </button>
-        <!-- Button trigger modal -->
-        <button type="button" id="btn-modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-          Crear Prestamo
-        </button>
     </div>  
 </div>
 
@@ -149,12 +125,11 @@
                     </div>
 
                     <div class="form-group">
-                        <button type="submit"  class="btn btn-success">Insertar</button>
+                        <button type="submit"  class="btn btn-success" id="btn-modal" data-toggle="modal" data-target="#myModal">Insertar</button>
                         <a href="{{ url()->previous() }}" class="btn btn-default">Cancelar</a>
                     </div>
                     <div class="form-group">
-                        <input type="hidden"  name="nombre"
-                               value="{{ Auth::user()->id }}" >
+                        <input type="hidden"  name="nombre" value="{{ Auth::user()->id }}" >
                     </div>
                 </form>
     </div>

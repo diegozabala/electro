@@ -17,3 +17,7 @@
 .col-list li p { font-size: 1em; padding: 7px; margin: 0; }
 .col-list li:hover { background-color: #397588; }
 .servicio span { color: rgba(162, 213, 0, 1); margin-left: 7px; margin-right: 7px;} 
+
+.table-sortable tbody tr {
+    cursor: move;
+}
