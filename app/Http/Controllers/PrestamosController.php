@@ -62,92 +62,64 @@ class prestamoNuevoController extends Controller
      */
     public function store(Request $request)
     {
-
-        for ($i=0; $i < sizeof($request->prestamo_equipos); $i++){
+        for ($i=0; $i < sizeof($request->prestamo_paquetes); $i++){
 
             $prestamoNuevo = new Prestamo();
-            $user= User::where('nombre','=',$request->nombre);
-            $estudiante = Estudiante::where('nombre_estudiante','=',$request->nombre_estudiante);
+            $user= User::where('id','=',$request->usuario_id);
+            $estudiante = Estudiante::where('id','=',$request->estudiante_id);
             $instrumento = Instrumento::where('nombre' . ' ' . 'tipo','=',$request->prestamo_equipos[$i])->get();
             $instrumento->cantidad= $instrumento->cantidad-$request->cantidad_del_equipo[$i];
 
             $prestamoNuevo->user_id=$user->id;
-            $prestamoNuevo->estudiante_id=$request->id_estudiante;
+            $prestamoNuevo->estudiante_id=$request->$estudiante->id;
+            $prestamoNuevo->equipo_id=$instrumento->id;
+            $prestamoNuevo->componente_id=null;
+            $prestamoNuevo->cantidad_equipo=$request->cantidad_del_equipo[$i];
+            $prestamoNuevo->cantidad_componente=0;
+            $prestamoNuevo->estado="ACTIVO";
+            $prestamoNuevo->observaciones=$request->observaciones;
 
-
-
-        'user_id','estudiante_id','equipo_id','componente_id',
-        'cantidad_equipo','cantidad_componente','estado','created_at','observaciones',
-
-
-/*
-        $nombres = $request->prestamoNuevo;
-        $adicion=$request->adicion;
-        $tamaño2=sizeof($adicion);
-        $var="";
-        for ($i=0;$i < $tamaño2;$i++){
-            if ($i < $tamaño2-1 )
-            $var.=$adicion[$i]."+";
-
-            else
-                $var.=$adicion[$i];
-
+            $prestamoNuevo->save();
         }
 
-        $tamaño=sizeof($nombres);
-        $instrumento1= new Instrumento();
-        $user= User::where('nombre','=',$request->nombre);
-        for ($i=0; $i < $tamaño; $i++){
-            if ($tamaño==1){
+
+        for ($i=0; $i < sizeof($request->prestamo_equipos); $i++){
+
+            if ($cantidad_del_equipo[$i]!=0){
                 $prestamoNuevo = new Prestamo();
-                $instrumento = Instrumento::where('nombre','=',$nombres[$i])->get();
-                $instrumento1= $instrumento[0];
-                if ($instrumento1->tipo=="EX"){
-                    $instrumento1->estado="disponible";
-                }
-                else{
-                    $instrumento1 ->estado="ocupado";
+                $user= User::where('id','=',$request->usuario_id);
+                $estudiante = Estudiante::where('id','=',$request->estudiante_id);
+
+                if(substr($request->prestamo_paquetes[$i],0,1) == 'O'){
+
                 }
 
-
-                $prestamoNuevo->adicion=$var;
-                $prestamoNuevo->instrumento_id=$instrumento[0]["id"];
-                $prestamoNuevo->observaciones=$request->observaciones;
-                $prestamoNuevo->estudiante_id=$request->codigo;
-                $prestamoNuevo->user_id=$request->nombre;
-                $instrumento1->save();
-                $prestamoNuevo->save();
-                $prestamoNuevo=null;
-                $instrumento=null;
-                $instrumento1=null;
             }
-            else{
-                $prestamoNuevo = new Prestamo();
-                $instrumento = Instrumento::where('nombre','=',$nombres[$i])->get();
-                $instrumento1= $instrumento[0];
-                if ($instrumento->tipo=="EX"){
-                    $instrumento->estado="disponible";
-                }
-                else{
-                    $instrumento1->estado="ocupado";
-                }
-                $prestamoNuevo->adicion=$var;
-                $prestamoNuevo->instrumento_id=$instrumento[0]["id"];
-                $prestamoNuevo->observaciones=$request->observaciones;
-                $prestamoNuevo->estudiante_id=$request->codigo;
-                $prestamoNuevo->user_id=$request->nombre;
-                $instrumento1->save();
-                $prestamoNuevo->save();
-                $prestamoNuevo=null;
-                $instrumento=null;
-                $instrumento1=null;
-                $var="";
-            }
-            
         }
-        */
 
-        return redirect()->route('admin.prestamoNuevo.index');
+        for ($i=0; $i < sizeof($request->prestamo_componentes); $i++){
+
+            if ($cantidad_del_componente[$i]!=0){
+                $prestamoNuevo = new Prestamo();
+                $user= User::where('id','=',$request->usuario_id);
+                $estudiante = Estudiante::where('id','=',$request->estudiante_id);
+                $componente = Componente::where('nombre' . ' ' . 'referencia','=',$request->prestamo_componentes[$i])->get();
+                $componente->cantidad= $componente->cantidad-$request->cantidad_del_componente[$i];
+
+                $prestamoNuevo->user_id=$user->id;
+                $prestamoNuevo->estudiante_id=$request->$estudiante->id;
+                $prestamoNuevo->equipo_id=null;
+                $prestamoNuevo->componente_id=$componente->id;
+                $prestamoNuevo->cantidad_equipo=0;
+                $prestamoNuevo->cantidad_componente=$request->cantidad_del_componente[$i];
+                $prestamoNuevo->estado="ACTIVO";
+                $prestamoNuevo->observaciones=$request->observaciones;
+
+                $prestamoNuevo->save();
+            }
+        }
+
+        return redirect()->route('admin.prestamos.index');
 
 
     }
@@ -173,7 +145,7 @@ class prestamoNuevoController extends Controller
     {
         $prestamo=Prestamo::find($id);
         $estudiante = Estudiante::find($prestamo->estudiante_id);
-        return view('admin/prestamoNuevo/edit')->with('prestamo',$prestamo)->with('estudiante',$estudiante);
+        return view('admin/prestamos/edit')->with('prestamo',$prestamo)->with('estudiante',$estudiante);
     }
 
     /**
@@ -203,7 +175,7 @@ class prestamoNuevoController extends Controller
 
         $prestamo->save();
 
-        return redirect()->route('admin.prestamoNuevo.index');
+        return redirect()->route('admin.prestamos.index');
 
     }
 
@@ -219,7 +191,7 @@ class prestamoNuevoController extends Controller
        $instrumento->estado="disponible";
        $instrumento->save();
        $prestamoNuevo->delete();
-       return redirect()->route('admin.prestamoNuevo.index');
+       return redirect()->route('admin.prestamos.index');
 
    }
 
@@ -232,7 +204,7 @@ class prestamoNuevoController extends Controller
         if (count($estudiante)==0){
             return view('errors.503');
             }
-        return view('admin/prestamoNuevo/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
 
 
         
@@ -249,10 +221,10 @@ class prestamoNuevoController extends Controller
         elseif (count($estudiante)>1){
             
             
-            return view('admin/prestamoNuevo/profes')->with('estudiante',$estudiante);
+            return view('admin/prestamos/profes')->with('estudiante',$estudiante);
         }
 
-        return view('admin/prestamoNuevo/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
 
     }
     

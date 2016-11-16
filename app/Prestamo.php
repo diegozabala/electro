@@ -9,7 +9,7 @@ class Prestamo extends Model
     protected $table="prestamos";
 
     protected  $fillable=[
-        'user_id','estudiante_id','equipo_id','componente_id','cantidad_equipo','cantidad_componente','estado','created_at','observaciones',
+        'user_id','estudiante_id','equipo_id','componente_id','cantidad_equipo','cantidad_componente','paquetes','created_at','observaciones',
     ];
 
 

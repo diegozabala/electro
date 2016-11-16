@@ -22,6 +22,10 @@ class Estudiante extends Model
         return $this->belongsTo('App\Carrera');
     }
 
+    public function prestamos(){
+        return $this->hasMany('App\Prestamo');
+    }
+
     public function scopeSearch($query, $name){
         return $query->where('name','LIKE','%$NAME%');
     }

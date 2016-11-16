@@ -90,9 +90,9 @@
                 <h2>Paquete</h2>
             </div>
             <ul class="list-unstyled">
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="OGF">OGF</label>
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="OFM">OFM</label>
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="DMA">DMA</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="OGF">OSCILOSCOPIO,GENERADOR,FUENTE</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="OFM">OSCILOSCOPIO,GENERADOR,MULTIMETRO</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="DMA">SONDA,GENERADOR,GENERADOR</label>
                 <label><input type="checkbox" name="prestamo_paquetes[]" value="ACD">ACD</label>
             </ul>
         </div>
@@ -110,7 +110,10 @@
                         <a href="{{ url()->previous() }}" class="btn btn-default">Cancelar</a>
                     </div>
                     <div class="form-group">
-                        <input type="hidden"  name="nombre" value="{{ Auth::user()->id }}" >
+                        <input type="hidden"  name="usuario_id" value="{{ Auth::user()->id }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden"  name="estudiante_id" value="{{$estudiante->id}}">
                     </div>
                 </form>
     </div>
