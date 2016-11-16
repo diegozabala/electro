@@ -26,7 +26,6 @@
                 <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
             </ul>
   
-
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 <div class="form-group">
@@ -38,19 +37,21 @@
                 <h2>Equipos</h2>
             </div>
 
-            <ul class="list-unstyled">
-                @foreach($instrumentos as $instrumento)
-                    <label><input type="checkbox" value="">
-                        <?php
-                            for ($i = 0;$i< $instrumento->cantidad; $i ++){
-                                $cantidades[$i] = $i+1;
-                            }  
-                        ?> 
-                        <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
+            <ul class="list-unstyle">
 
-                        <select type="number">
+                @foreach($instrumentos as $instrumento)
+                    <?php
+                        for ($i = 0;$i< $instrumento->cantidad; $i ++){
+                            $cantidades[$i] = $i+1;
+                        }
+                    ?> 
+                    <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->nombre . ' ' . $instrumento->tipo}}">
+                        <label>{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
+
+                        <select id="cantidad_del_equipo" type="number" name="cantidad_del_equipo[]">
+                            <option value="0">0</option>
                             @foreach($cantidades as $num)
-                                <option>{{$num}}</option>
+                                <option value="{{$num}}">{{$num}}</option>
                             @endforeach 
                         </select>
                     </label>
@@ -65,7 +66,7 @@
             </div>
             <ul class="list-unstyled">
                 @foreach($componentes as $componente)
-                    <label><input type="checkbox" value="">
+                    <label><input type="checkbox" value="" name="prestamo_compnentes[]">
                         <?php
                             for ($i = 0;$i< $componente->cantidad; $i ++){
                                 $cantidades[$i] = $i+1;
@@ -88,39 +89,15 @@
                 <h2>Paquete</h2>
             </div>
             <ul class="list-unstyled">
-                <label><input type="checkbox" value="">OGF</label>
-                <label><input type="checkbox" value="">OFM</label>
-                <label><input type="checkbox" value="">DMA</label>
-                <label><input type="checkbox" value="">ACD</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="OGF">OGF</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="OFM">OFM</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="DMA">DMA</label>
+                <label><input type="checkbox" name="prestamo_paquetes[]" value="ACD">ACD</label>
             </ul>
         </div>
     </div>
-    <hr />
-    <div class="text-right">
-        <h4 class="pull-left">Total: <span id="uym-price">0</span></h4>
-    </div>  
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">EQUIPOS SELECCIONADOS</h4>
-      </div>
-      <div class="modal-body">
-        <!--textarea id="textarea-list" class="col-md-12"></textarea-->
-        <ul id="summary-list">
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar Cambios</button>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                     <div class="form-group">
                         <label for="observaciones">Observaciones</label>

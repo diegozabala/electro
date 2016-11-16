@@ -63,7 +63,7 @@ class PrestamosController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->$equipos_seleccionados);
+        dd($request);
 
 /*
         $instrumento = new Instrumento();
