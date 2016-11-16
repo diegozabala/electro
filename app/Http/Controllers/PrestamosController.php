@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests;
 use Collective\Annotations\Database;
 
-class PrestamosController extends Controller
+class prestamoNuevoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,11 +21,11 @@ class PrestamosController extends Controller
      */
     public function index()
     {
-        $prestamos= DB::table('estudiantes')
-            ->join('prestamos','estudiantes.id','=','prestamos.estudiante_id')
-            ->join('instrumentos','instrumentos.id','=','prestamos.instrumento_id')
-            ->join('users','users.id','=','prestamos.user_id')
-            ->select('prestamos.*','estudiantes.nombre_estudiante','estudiantes.apellido_estudiante','estudiantes.numero_documento'
+        $prestamoNuevo= DB::table('estudiantes')
+            ->join('prestamoNuevo','estudiantes.id','=','prestamoNuevo.estudiante_id')
+            ->join('instrumentos','instrumentos.id','=','prestamoNuevo.instrumento_id')
+            ->join('users','users.id','=','prestamoNuevo.user_id')
+            ->select('prestamoNuevo.*','estudiantes.nombre_estudiante','estudiantes.apellido_estudiante','estudiantes.numero_documento'
                 ,'instrumentos.nombre','users.name','users.apellido')->get();
         
         //-------------instrumentos prestados-----------//
@@ -39,7 +39,7 @@ class PrestamosController extends Controller
             ->where('estado','ocupado')->where('nombre','LIKE','M%')->count();
 
 
-        return view('admin/prestamos/index')->with('prestamos',$prestamos)->with('osciloscopios',$osciloscopios)
+        return view('admin/prestamoNuevo/index')->with('prestamoNuevo',$prestamoNuevo)->with('osciloscopios',$osciloscopios)
             ->with('bananas',$bananas)->with('multimetros',$multimetros);
 
     }
@@ -51,7 +51,7 @@ class PrestamosController extends Controller
      */
     public function create()
     {
-        return view('admin/prestamos/create');
+        return view('admin/prestamoNuevo/create');
     }
 
     /**
@@ -63,12 +63,25 @@ class PrestamosController extends Controller
     public function store(Request $request)
     {
 
-        dd($request);
+        for ($i=0; $i < sizeof($request->prestamo_equipos); $i++){
+
+            $prestamoNuevo = new Prestamo();
+            $user= User::where('nombre','=',$request->nombre);
+            $estudiante = Estudiante::where('nombre_estudiante','=',$request->nombre_estudiante);
+            $instrumento = Instrumento::where('nombre' . ' ' . 'tipo','=',$request->prestamo_equipos[$i])->get();
+            $instrumento->cantidad= $instrumento->cantidad-$request->cantidad_del_equipo[$i];
+
+            $prestamoNuevo->user_id=$user->id;
+            $prestamoNuevo->estudiante_id=$request->id_estudiante;
+
+
+
+        'user_id','estudiante_id','equipo_id','componente_id',
+        'cantidad_equipo','cantidad_componente','estado','created_at','observaciones',
+
 
 /*
-        $instrumento = new Instrumento();
-        $prestamos = new Prestamo();
-        $nombres = $request->prestamos;
+        $nombres = $request->prestamoNuevo;
         $adicion=$request->adicion;
         $tamaño2=sizeof($adicion);
         $var="";
@@ -86,7 +99,7 @@ class PrestamosController extends Controller
         $user= User::where('nombre','=',$request->nombre);
         for ($i=0; $i < $tamaño; $i++){
             if ($tamaño==1){
-                $prestamos = new Prestamo();
+                $prestamoNuevo = new Prestamo();
                 $instrumento = Instrumento::where('nombre','=',$nombres[$i])->get();
                 $instrumento1= $instrumento[0];
                 if ($instrumento1->tipo=="EX"){
@@ -97,19 +110,19 @@ class PrestamosController extends Controller
                 }
 
 
-                $prestamos->adicion=$var;
-                $prestamos->instrumento_id=$instrumento[0]["id"];
-                $prestamos->observaciones=$request->observaciones;
-                $prestamos->estudiante_id=$request->codigo;
-                $prestamos->user_id=$request->nombre;
+                $prestamoNuevo->adicion=$var;
+                $prestamoNuevo->instrumento_id=$instrumento[0]["id"];
+                $prestamoNuevo->observaciones=$request->observaciones;
+                $prestamoNuevo->estudiante_id=$request->codigo;
+                $prestamoNuevo->user_id=$request->nombre;
                 $instrumento1->save();
-                $prestamos->save();
-                $prestamos=null;
+                $prestamoNuevo->save();
+                $prestamoNuevo=null;
                 $instrumento=null;
                 $instrumento1=null;
             }
             else{
-                $prestamos = new Prestamo();
+                $prestamoNuevo = new Prestamo();
                 $instrumento = Instrumento::where('nombre','=',$nombres[$i])->get();
                 $instrumento1= $instrumento[0];
                 if ($instrumento->tipo=="EX"){
@@ -118,22 +131,24 @@ class PrestamosController extends Controller
                 else{
                     $instrumento1->estado="ocupado";
                 }
-                $prestamos->adicion=$var;
-                $prestamos->instrumento_id=$instrumento[0]["id"];
-                $prestamos->observaciones=$request->observaciones;
-                $prestamos->estudiante_id=$request->codigo;
-                $prestamos->user_id=$request->nombre;
+                $prestamoNuevo->adicion=$var;
+                $prestamoNuevo->instrumento_id=$instrumento[0]["id"];
+                $prestamoNuevo->observaciones=$request->observaciones;
+                $prestamoNuevo->estudiante_id=$request->codigo;
+                $prestamoNuevo->user_id=$request->nombre;
                 $instrumento1->save();
-                $prestamos->save();
-                $prestamos=null;
+                $prestamoNuevo->save();
+                $prestamoNuevo=null;
                 $instrumento=null;
                 $instrumento1=null;
                 $var="";
             }
             
         }
-        return redirect()->route('admin.prestamos.index');
-*/
+        */
+
+        return redirect()->route('admin.prestamoNuevo.index');
+
 
     }
 
@@ -158,7 +173,7 @@ class PrestamosController extends Controller
     {
         $prestamo=Prestamo::find($id);
         $estudiante = Estudiante::find($prestamo->estudiante_id);
-        return view('admin/prestamos/edit')->with('prestamo',$prestamo)->with('estudiante',$estudiante);
+        return view('admin/prestamoNuevo/edit')->with('prestamo',$prestamo)->with('estudiante',$estudiante);
     }
 
     /**
@@ -188,7 +203,7 @@ class PrestamosController extends Controller
 
         $prestamo->save();
 
-        return redirect()->route('admin.prestamos.index');
+        return redirect()->route('admin.prestamoNuevo.index');
 
     }
 
@@ -199,12 +214,12 @@ class PrestamosController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function destroy($id){
-       $prestamos=Prestamo::find($id);
-       $instrumento=Instrumento::find($prestamos->instrumento_id);
+       $prestamoNuevo=Prestamo::find($id);
+       $instrumento=Instrumento::find($prestamoNuevo->instrumento_id);
        $instrumento->estado="disponible";
        $instrumento->save();
-       $prestamos->delete();
-       return redirect()->route('admin.prestamos.index');
+       $prestamoNuevo->delete();
+       return redirect()->route('admin.prestamoNuevo.index');
 
    }
 
@@ -217,7 +232,7 @@ class PrestamosController extends Controller
         if (count($estudiante)==0){
             return view('errors.503');
             }
-        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
+        return view('admin/prestamoNuevo/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
 
 
         
@@ -234,10 +249,10 @@ class PrestamosController extends Controller
         elseif (count($estudiante)>1){
             
             
-            return view('admin/prestamos/profes')->with('estudiante',$estudiante);
+            return view('admin/prestamoNuevo/profes')->with('estudiante',$estudiante);
         }
 
-        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
+        return view('admin/prestamoNuevo/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
 
     }
     

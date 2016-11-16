@@ -9,7 +9,19 @@ class Prestamo extends Model
     protected $table="prestamos";
 
     protected  $fillable=[
-        'user_id','estudiante_id','instrumento_id','componente_id','adicion','estado','created_at','observaciones',
+        'user_id','estudiante_id','equipo_id','componente_id','cantidad_equipo','cantidad_componente','estado','created_at','observaciones',
     ];
 
+
+    public function estudiante(){
+        return $this->belongsTo('App\Estudiante');
+    }
+
+    public function instrumento(){
+        return $this->belongsTo('App\Instrumento');
+    }
+
+    public function componente(){
+        return $this->belongsTo('App\Componente');
+    }
 }

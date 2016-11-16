@@ -17,10 +17,12 @@ class AddPrestamosTable extends Migration
             $table->increments('id');
 
             $table->integer('estudiante_id');
-            $table->integer('instrumento_id');
             $table->integer('user_id');
+            $table->integer('equipo_id')->nullable();
+            $table->integer('componente_id')->nullable();
+            $table->integer('cantidad_equipo')->nullable();
+            $table->integer('cantidad_componente')->nullable();
             $table->string('estado');
-            $table->string('adicion');
             $table->string('observaciones')->nullable();
             $table->timestamps();
         });

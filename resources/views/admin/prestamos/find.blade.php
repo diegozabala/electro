@@ -25,7 +25,7 @@
             <ul class="list-group">
                 <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
             </ul>
-  
+
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 <div class="form-group">
@@ -45,10 +45,10 @@
                             $cantidades[$i] = $i+1;
                         }
                     ?> 
-                    <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->nombre . ' ' . $instrumento->tipo}}">
+                    <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->nombre . ' ' . $instrumento->tipo}}" onclick="sel<?php echo $instrumento->id;?>.disabled=!this.checked" >
                         <label>{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
 
-                        <select id="cantidad_del_equipo" type="number" name="cantidad_del_equipo[]">
+                        <select  id="sel<?php echo $instrumento->id;?>" type="number" name="cantidad_del_equipo[]" disabled="disabled">
                             <option value="0">0</option>
                             @foreach($cantidades as $num)
                                 <option value="{{$num}}">{{$num}}</option>
@@ -66,17 +66,18 @@
             </div>
             <ul class="list-unstyled">
                 @foreach($componentes as $componente)
-                    <label><input type="checkbox" value="" name="prestamo_compnentes[]">
-                        <?php
-                            for ($i = 0;$i< $componente->cantidad; $i ++){
-                                $cantidades[$i] = $i+1;
+                    <?php
+                        for ($i = 0;$i< $componente->cantidad; $i ++){
+                            $cantidades[$i] = $i+1;
                             }  
-                        ?> 
-                        <label name="nombre_Equipo" id="nombre_Equipo" for="nombre_Equipo">{{$componente->nombre . ' ' . $componente->referencia}}</label>
+                    ?> 
+                    <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->nombre . ' ' . $componente->referencia}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
+                        <label>{{$componente->nombre . ' ' . $componente->referencia}}</label>
 
-                        <select type="number">
+                        <select id="sel2<?php echo $componente->id;?>" type="number" name="cantidad_del_componente[]" disabled="disabled">
+                            <option value="0">0</option>
                             @foreach($cantidades as $num)
-                                <option>{{$num}}</option>
+                                <option value="{{$num}}">{{$num}}</option>
                             @endforeach 
                         </select>
                     </label>
