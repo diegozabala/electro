@@ -40,7 +40,7 @@
 
                 @foreach($instrumentos as $instrumento)
                     <?php
-                        for ($i = 0;$i< $instrumento->cantidad; $i ++){
+                        for ($i = 0;$i< $instrumento->cantidad; $i++){
                             $cantidades[$i] = $i+1;
                         }
                     ?> 
@@ -68,7 +68,7 @@
                     <?php
                         for ($i = 0;$i< $componente->cantidad; $i ++){
                             $cantidades[$i] = $i+1;
-                            }  
+                        }  
                     ?> 
                     <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->id}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
                         <label>{{$componente->nombre . ' ' . $componente->referencia}}</label>

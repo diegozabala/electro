@@ -34,7 +34,7 @@ class PrestamosController extends Controller
             ->join('componentes','componentes.id','=','prestamos.componente_id')
             ->join('users','users.id','=','prestamos.user_id')
             ->select('prestamos.*','estudiantes.nombre_estudiante','estudiantes.apellido_estudiante','estudiantes.numero_documento'
-                ,'componentes.nombre AS nombre_componente','componentes.referencia AS referencia_componente','componentes.cantidad AS cantidad_componente'
+                ,'componentes.nombre AS nombre_componente','componentes.referencia AS referencia_componente','componentes.cantidad AS cantidad_compo'
                 ,'users.name','users.apellido')->get();
 
         $paquetesPrestados= DB::table('estudiantes')
@@ -101,6 +101,7 @@ class PrestamosController extends Controller
                 $instrumentos = Instrumento::where('id','=',$request->prestamo_equipos[$i])->get();
 
                 foreach ($instrumentos as $instrumento) {
+
                         $resta = $instrumento->cantidad - $request->cantidad_del_equipo[$i];
                         $instrumento->cantidad = $resta;
                         $prestamoNuevo->user_id=$request->usuario_id;
@@ -207,29 +208,23 @@ class PrestamosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-   public function destroy($id){
+    public function destroy($id){
        $prestamos=Prestamo::find($id);
 
         if($prestamos->equipo_id != null){
-            $instrumentos=Instrumento::find($prestamos->equipo_id);
-                foreach ($instrumentos as $instrumento) {
-                    
-                    $suma = $prestamos->cantidad_equipo +  $instrumento->cantidad;
-                    $instrumento->cantidad=$suma;
-                    $instrumento->save();
-                }
+            $instrumento=Instrumento::find($prestamos->equipo_id);
+            $suma = $prestamos->cantidad_equipo +  $instrumento->cantidad;
+            $instrumento->cantidad=$suma;
+            $instrumento->save(); 
 
             $prestamos->estado="NO DISPONIBLE";
             $prestamos->save();
        }
        elseif ($prestamos->componente_id != null) {
-            $componentes = Componente::find($prestamos->componente_id);
-                foreach ($componentes as $componente) {
-                    
-                    $suma = $prestamos->cantidad_componente +  $componente->cantidad;
-                    $componente->cantidad=$suma;
-                    $componente->save();
-                }
+            $componente = Componente::find($prestamos->componente_id);       
+            $suma = $prestamos->cantidad_componente +  $componente->cantidad;
+            $componente->cantidad=$suma;
+            $componente->save();
 
             $prestamos->estado="NO DISPONIBLE";
             $prestamos->save();

@@ -50,7 +50,7 @@
                                 <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
                                 <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
                                 <td>{{$prestamo->nombre_instrumento . " " . $prestamo->tipo_instrumento}}</td>
-                                <td>{{$prestamo->cantidad_instrumento}}</td>
+                                <td>{{$prestamo->cantidad_equipo}}</td>
                                 <td>{{$prestamo->observaciones}}</td>
                                 <td>{{$prestamo->created_at}}</td>
                                 <td>
