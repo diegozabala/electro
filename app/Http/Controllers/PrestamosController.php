@@ -87,7 +87,7 @@ class PrestamosController extends Controller
             $prestamoNuevo->componente_id=null;
             $prestamoNuevo->cantidad_equipo=0;
             $prestamoNuevo->cantidad_componente=0;
-            $prestamoNuevo->estado="ACTIVO";
+            $prestamoNuevo->estado="DISPONIBLE";
             $prestamoNuevo->observaciones=$request->observaciones;
             $prestamoNuevo->paquetes=$request->prestamo_paquetes;
 
@@ -109,7 +109,7 @@ class PrestamosController extends Controller
                         $prestamoNuevo->componente_id=null;
                         $prestamoNuevo->cantidad_equipo=$request->cantidad_del_equipo[$i];
                         $prestamoNuevo->cantidad_componente=0;
-                        $prestamoNuevo->estado="ACTIVO";
+                        $prestamoNuevo->estado="DISPONIBLE";
                         $prestamoNuevo->observaciones=$request->observaciones;
 
                     $instrumento->save();
@@ -134,7 +134,7 @@ class PrestamosController extends Controller
                     $prestamoNuevo->componente_id=$componente->id;
                     $prestamoNuevo->cantidad_equipo=0;
                     $prestamoNuevo->cantidad_componente=$request->cantidad_del_componente[$i];
-                    $prestamoNuevo->estado="ACTIVO";
+                    $prestamoNuevo->estado="DISPONIBLE";
                     $prestamoNuevo->observaciones=$request->observaciones;
                     
                     $componente->save();
@@ -220,6 +220,7 @@ class PrestamosController extends Controller
                 }
 
             $prestamos->estado="NO DISPONIBLE";
+            $prestamos->save();
        }
        elseif ($prestamos->componente_id != null) {
             $componentes = Componente::find($prestamos->componente_id);
@@ -231,6 +232,11 @@ class PrestamosController extends Controller
                 }
 
             $prestamos->estado="NO DISPONIBLE";
+            $prestamos->save();
+       }
+       elseif($prestamos->paquetes != ""){
+            $prestamos->estado="NO DISPONIBLE";
+            $prestamos->save();
        }
 
        return redirect()->route('admin.prestamos.index');

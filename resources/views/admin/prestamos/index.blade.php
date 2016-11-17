@@ -45,20 +45,22 @@
                 </thead>
                 <tbody>
                     @foreach($prestamosEquipos as $prestamo)
-                        <tr class="table-info">
-                            <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
-                            <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
-                            <td>{{$prestamo->nombre_instrumento . " " . $prestamo->tipo_instrumento}}</td>
-                            <td>{{$prestamo->cantidad_instrumento}}</td>
-                            <td>{{$prestamo->observaciones}}</td>
-                            <td>{{$prestamo->created_at}}</td>
-                            <td>
-                                <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btnTablas btn-danger"
-                                   onclick="return confirm('¿Seguro desea eliminarlo?')">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
+                        @if($prestamo->estado != "NO DISPONIBLE")
+                            <tr class="table-info">
+                                <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
+                                <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
+                                <td>{{$prestamo->nombre_instrumento . " " . $prestamo->tipo_instrumento}}</td>
+                                <td>{{$prestamo->cantidad_instrumento}}</td>
+                                <td>{{$prestamo->observaciones}}</td>
+                                <td>{{$prestamo->created_at}}</td>
+                                <td>
+                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btn btn-danger"
+                                       onclick="return confirm('¿Seguro desea eliminarlo?')">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
@@ -86,20 +88,22 @@
                 </thead>
                 <tbody>
                     @foreach($prestamosComponentes as $prestamo)
-                        <tr class="table-info">
-                            <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
-                            <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
-                            <td>{{$prestamo->nombre_componente . " " . $prestamo->referencia_componente}}</td>
-                            <td>{{$prestamo->cantidad_componente}}</td>
-                            <td>{{$prestamo->observaciones}}</td>
-                            <td>{{$prestamo->created_at}}</td>
-                            <td>
-                                <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btnTablas btn-danger"
-                                   onclick="return confirm('¿Seguro desea eliminarlo?')">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </a>
-                            </td>
-                        </tr>
+                        @if($prestamo->estado != "NO DISPONIBLE")
+                            <tr class="table-info">
+                                <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
+                                <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
+                                <td>{{$prestamo->nombre_componente . " " . $prestamo->referencia_componente}}</td>
+                                <td>{{$prestamo->cantidad_componente}}</td>
+                                <td>{{$prestamo->observaciones}}</td>
+                                <td>{{$prestamo->created_at}}</td>
+                                <td>
+                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btn btn-danger"
+                                       onclick="return confirm('¿Seguro desea eliminarlo?')">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>
@@ -125,7 +129,7 @@
                 </thead>
                 <tbody>
                     @foreach($prestamosPaquetes as $prestamo)
-                        @if ($prestamo->paquetes != '')                            
+                        @if (($prestamo->paquetes != '') && ($prestamo->estado != 'NO DISPONIBLE'))
                             <tr class="table-info">
                                 <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
                                 <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
@@ -133,7 +137,7 @@
                                 <td>{{$prestamo->observaciones}}</td>
                                 <td>{{$prestamo->created_at}}</td>
                                 <td>
-                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btnTablas btn-danger"
+                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btn btn-danger"
                                        onclick="return confirm('¿Seguro desea eliminarlo?')">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </a>
