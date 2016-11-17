@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.css')}}">
 
     <link rel="icon" href="{{asset('plugins/bootstrap/fonts/glyphicons-halflings-regular.eot')}}">
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/prestamos.css')}}">
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -94,6 +93,8 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-    
+
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/prestamos.css')}}">
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/index.css')}}">
 </body>
 </html>

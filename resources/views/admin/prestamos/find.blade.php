@@ -3,7 +3,7 @@
 <section class="section-login">
 
     <div class="panel-heading">
-        <h3 class="panel-tittle">Visualizar Estudiante</h3>
+        <h3 class="panel-tittle">Visualizar Prestamo</h3>
     </div>
 
     <div class="panel-registro">
@@ -11,10 +11,9 @@
             $direccion_imagen="images/estudiantes /".$estudiante[0]->imagen;
         ?>
         <div class="imagen">
-        <div class="form-group container-fluid" >
-            <img src="{{asset($direccion_imagen)}}" height="200" class="img-rounded img-rounded  d-block">
-
-        </div>
+            <div class="form-group container-fluid" >
+                <img src="{{asset($direccion_imagen)}}" height="200" class="img-rounded img-rounded  d-block">
+            </div>
         </div>
 
         <form class="form-horizontal" role="form" method="POST"
@@ -45,7 +44,7 @@
                             $cantidades[$i] = $i+1;
                         }
                     ?> 
-                    <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->nombre . ' ' . $instrumento->tipo}}" onclick="sel<?php echo $instrumento->id;?>.disabled=!this.checked" >
+                    <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->id}}" onclick="sel<?php echo $instrumento->id;?>.disabled=!this.checked" >
                         <label>{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
 
                         <select  id="sel<?php echo $instrumento->id;?>" type="number" name="cantidad_del_equipo[]" disabled="disabled">
@@ -71,7 +70,7 @@
                             $cantidades[$i] = $i+1;
                             }  
                     ?> 
-                    <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->nombre . ' ' . $componente->referencia}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
+                    <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->id}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
                         <label>{{$componente->nombre . ' ' . $componente->referencia}}</label>
 
                         <select id="sel2<?php echo $componente->id;?>" type="number" name="cantidad_del_componente[]" disabled="disabled">
@@ -90,10 +89,13 @@
                 <h2>Paquete</h2>
             </div>
             <ul class="list-unstyled">
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="OGF">OSCILOSCOPIO,GENERADOR,FUENTE</label>
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="OFM">OSCILOSCOPIO,GENERADOR,MULTIMETRO</label>
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="DMA">SONDA,GENERADOR,GENERADOR</label>
-                <label><input type="checkbox" name="prestamo_paquetes[]" value="ACD">ACD</label>
+                <select class="selectpicker" data-style="btn-primary" name="prestamo_paquetes">
+                    <option></option>
+                    <option>FOG</option>
+                    <option>FO</option>
+                    <option>FG</option>
+                    <option>OG</option>
+                </select>
             </ul>
         </div>
     </div>
@@ -113,7 +115,7 @@
                         <input type="hidden"  name="usuario_id" value="{{ Auth::user()->id }}">
                     </div>
                     <div class="form-group">
-                        <input type="hidden"  name="estudiante_id" value="{{$estudiante->id}}">
+                        <input type="hidden"  name="estudiante_actual_id" value="{{$estudiante[0]->id}}">
                     </div>
                 </form>
     </div>

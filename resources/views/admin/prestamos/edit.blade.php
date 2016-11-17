@@ -3,7 +3,7 @@
 <section class="section-login">
 
     <div class="panel-heading">
-        <h3 class="panel-tittle">Visualizar Estudiante</h3>
+        <h3 class="panel-tittle">Visualizar Prestamo</h3>
     </div>
 
     <div class="panel-registro">
@@ -24,37 +24,99 @@
             <ul class="list-group">
                 <li class="list-group-item text-center">{{$estudiante->nombre_estudiante . " ". $estudiante->apellido_estudiante }}</li>
             </ul>
-            <div class="form-group" >
-                <input class="form-control" name="adicion" placeholder="{{$prestamo->adicion}}" disabled>
-            </div>
-            <div class="col-lg-12">
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Osciloscopio">Osciloscopio</label>
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Multimetro">Multimetro</label>
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Bananas Caiman">Bananas Caiman</label>
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Bananas Macho 4MM">Bananas Macho 4MM</label>
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Bananas Hembra 2MM">Bananas Hembra 2MM</label>
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Generador de Señales">Generador de Señales</label>
-                <label class="checkbox-inline"><input type="checkbox" name="adicion[]" value="Fuente">Fuente</label>
 
-            </div>
-            <div class="form-group">
-                <input type="hidden" class="form-control" name="codigo"
-                       value="{{$estudiante->id}}" >
-            </div>
-            <div class="form-group">
-                <label for="observaciones">Observaciones</label>
-                <textarea class="form-control" name="observaciones" cols="7"></textarea>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+<div class="form-group">
+    <div class="row col-list">
+
+        <div class="col-md-5 t1">
+            <div class="col-head text-center">
+                <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
+                <h2>Equipos</h2>
             </div>
 
-            <div class="form-group">
-                <button type="submit"  class="btn btn-success">Insertar</button>
-                <a href="{{ url()->previous() }}" class="btn btn-default">Cancelar</a>
+            <ul class="list-unstyle">
+
+                @foreach($instrumentos as $instrumento)
+                    <?php
+                        for ($i = 0;$i< $instrumento->cantidad; $i ++){
+                            $cantidades[$i] = $i+1;
+                        }
+                    ?> 
+                    <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->id}}" onclick="sel<?php echo $instrumento->id;?>.disabled=!this.checked" >
+                        <label>{{$instrumento->nombre . ' ' . $instrumento->tipo}}</label>
+
+                        <select  id="sel<?php echo $instrumento->id;?>" type="number" name="cantidad_del_equipo[]" disabled="disabled">
+                            <option value="0">0</option>
+                            @foreach($cantidades as $num)
+                                <option value="{{$num}}">{{$num}}</option>
+                            @endforeach 
+                        </select>
+                    </label>
+                @endforeach
+            </ul>
+        </div>
+
+        <div class="col-md-5 t2">
+            <div class="col-head text-center">
+                <span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
+                <h2>Componentes</h2>
             </div>
-            <div class="form-group">
-                <input type="hidden"  name="nombre"
-                       value="{{ Auth::user()->id }}" >
+            <ul class="list-unstyled">
+                @foreach($componentes as $componente)
+                    <?php
+                        for ($i = 0;$i< $componente->cantidad; $i ++){
+                            $cantidades[$i] = $i+1;
+                            }  
+                    ?> 
+                    <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->id}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
+                        <label>{{$componente->nombre . ' ' . $componente->referencia}}</label>
+
+                        <select id="sel2<?php echo $componente->id;?>" type="number" name="cantidad_del_componente[]" disabled="disabled">
+                            <option value="0">0</option>
+                            @foreach($cantidades as $num)
+                                <option value="{{$num}}">{{$num}}</option>
+                            @endforeach 
+                        </select>
+                    </label>
+                @endforeach
+            </ul>
+        </div>
+        <div class="col-md-2 t3">
+            <div class="col-head text-center">
+                <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                <h2>Paquete</h2>
             </div>
-        </form>
+            <ul class="list-unstyled">
+                <select class="selectpicker" data-style="btn-primary" name="prestamo_paquetes">
+                    <option></option>
+                    <option>FOG</option>
+                    <option>FO</option>
+                    <option>FG</option>
+                    <option>OG</option>
+                </select>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                    <div class="form-group">
+                        <label for="observaciones">Observaciones</label>
+                        <textarea class="form-control" name="observaciones" cols="7"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit"  class="btn btn-success" id="btn-modal" data-toggle="modal" data-target="#myModal">Insertar</button>
+                        <a href="{{ url()->previous() }}" class="btn btn-default">Cancelar</a>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden"  name="usuario_id" value="{{ Auth::user()->id }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden"  name="estudiante_actual_id" value="{{$estudiante[0]->id}}">
+                    </div>
+                </form>
     </div>
 
 </section>

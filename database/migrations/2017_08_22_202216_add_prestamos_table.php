@@ -28,6 +28,7 @@ class AddPrestamosTable extends Migration
             $table->integer('cantidad_equipo')->nullable();
             $table->integer('cantidad_componente')->nullable();
             $table->string('paquetes');
+            $table->string('estado');
             $table->string('observaciones')->nullable();
             $table->timestamps();
         });
