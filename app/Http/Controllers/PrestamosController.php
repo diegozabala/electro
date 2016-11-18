@@ -44,18 +44,24 @@ class PrestamosController extends Controller
                 ,'users.name','users.apellido')->get();
         
         //-------------instrumentos prestados-----------//
-        $osciloscopios=DB::table('instrumentos')
-            ->where('estado','ocupado')->where('nombre','LIKE','O%')->count();
+        $osciloscopios=DB::table('prestamos')
+            ->join('instrumentos','prestamos.equipo_id','=','instrumentos.id')
+            ->where('prestamos.estado','ACTIVO')->where('instrumentos.nombre','LIKE','OSC%')->sum('prestamos.cantidad_equipo');
 
-        $bananas=DB::table('instrumentos')
-            ->where('estado','ocupado')->where('tipo','Caiman')->count();
+        $generadores=DB::table('prestamos')
+            ->join('instrumentos','prestamos.equipo_id','=','instrumentos.id')
+            ->where('prestamos.estado','ACTIVO')->where('instrumentos.nombre','LIKE','GENE%')->sum('prestamos.cantidad_equipo');
 
-        $multimetros=DB::table('instrumentos')
-            ->where('estado','ocupado')->where('nombre','LIKE','M%')->count();
+        $fuentes=DB::table('prestamos')
+            ->join('instrumentos','prestamos.equipo_id','=','instrumentos.id')
+            ->where('prestamos.estado','ACTIVO')->where('instrumentos.nombre','LIKE','FUEN%')->sum('prestamos.cantidad_equipo');
 
+        $multimetros=DB::table('prestamos')
+            ->join('instrumentos','prestamos.equipo_id','=','instrumentos.id')
+            ->where('prestamos.estado','ACTIVO')->where('instrumentos.nombre','LIKE','MULT%')->sum('prestamos.cantidad_equipo');
 
         return view('admin/prestamos/index')->with('prestamosEquipos',$equiposPrestados)->with('prestamosComponentes',$componentesPrestados)->with('prestamosPaquetes',$paquetesPrestados)->with('osciloscopios',$osciloscopios)
-            ->with('bananas',$bananas)->with('multimetros',$multimetros);
+            ->with('generadores',$generadores)->with('fuentes',$fuentes)->with('multimetros',$multimetros);
 
     }
 
@@ -87,7 +93,7 @@ class PrestamosController extends Controller
             $prestamoNuevo->componente_id=null;
             $prestamoNuevo->cantidad_equipo=0;
             $prestamoNuevo->cantidad_componente=0;
-            $prestamoNuevo->estado="DISPONIBLE";
+            $prestamoNuevo->estado="ACTIVO";
             $prestamoNuevo->observaciones=$request->observaciones;
             $prestamoNuevo->paquetes=$request->prestamo_paquetes;
 
@@ -110,7 +116,7 @@ class PrestamosController extends Controller
                         $prestamoNuevo->componente_id=null;
                         $prestamoNuevo->cantidad_equipo=$request->cantidad_del_equipo[$i];
                         $prestamoNuevo->cantidad_componente=0;
-                        $prestamoNuevo->estado="DISPONIBLE";
+                        $prestamoNuevo->estado="ACTIVO";
                         $prestamoNuevo->observaciones=$request->observaciones;
 
                     $instrumento->save();
@@ -135,7 +141,7 @@ class PrestamosController extends Controller
                     $prestamoNuevo->componente_id=$componente->id;
                     $prestamoNuevo->cantidad_equipo=0;
                     $prestamoNuevo->cantidad_componente=$request->cantidad_del_componente[$i];
-                    $prestamoNuevo->estado="DISPONIBLE";
+                    $prestamoNuevo->estado="ACTIVO";
                     $prestamoNuevo->observaciones=$request->observaciones;
                     
                     $componente->save();
@@ -217,7 +223,7 @@ class PrestamosController extends Controller
             $instrumento->cantidad=$suma;
             $instrumento->save(); 
 
-            $prestamos->estado="NO DISPONIBLE";
+            $prestamos->estado="INACTIVO";
             $prestamos->save();
        }
        elseif ($prestamos->componente_id != null) {
@@ -226,11 +232,11 @@ class PrestamosController extends Controller
             $componente->cantidad=$suma;
             $componente->save();
 
-            $prestamos->estado="NO DISPONIBLE";
+            $prestamos->estado="INACTIVO";
             $prestamos->save();
        }
        elseif($prestamos->paquetes != ""){
-            $prestamos->estado="NO DISPONIBLE";
+            $prestamos->estado="INACTIVO";
             $prestamos->save();
        }
 

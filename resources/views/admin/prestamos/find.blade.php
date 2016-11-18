@@ -54,6 +54,10 @@
                             @endforeach 
                         </select>
                     </label>
+                    <?php
+                        unset($cantidades);
+                        $cantidades = array(); 
+                    ?>
                 @endforeach
             </ul>
         </div>
@@ -80,6 +84,10 @@
                             @endforeach 
                         </select>
                     </label>
+                    <?php
+                        unset($cantidades);
+                        $cantidades = array(); 
+                    ?>
                 @endforeach
             </ul>
         </div>

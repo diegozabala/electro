@@ -21,7 +21,12 @@
                 <label for="cantidad">Cantidad</label>
                 <input type="text" class="form-control" name="cantidad" value="{{$instrumentos->cantidad}}" required>
             </div>
-
+            <div class="form-group">
+                <select name="tipo" class="form-control">
+                    <option value="pc">Analógico</option>
+                    <option value="apuntador">Digital</option>                    
+                </select>
+            </div>
             <div class="form-group">
                 <label for="descripcion">Descripción</label>
                 <textarea class="form-control" rows="5" name="descripcion" required>{{$instrumentos->descripcion}}</textarea>

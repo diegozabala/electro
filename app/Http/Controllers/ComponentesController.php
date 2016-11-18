@@ -43,11 +43,11 @@ class ComponentesController extends Controller
     public function store(Request $request)
     {
         $componentes = new Componente($request->all());
-        $componentes->nombre = $request->nombre;
+        $componentes->nombre = strtoupper($request->nombre);
         $componentes->cantidad = $request->cantidad;
         $componentes->descripcion = $request->descripcion;
-        $componentes->referencia=$request->referencia;
-        $componentes->estado="disponible";
+        $componentes->referencia=strtoupper($request->referencia);
+        $componentes->estado=strtoupper("disponible");
         $componentes->save();
         return redirect()->route ('admin.componentes.index');
 
@@ -87,10 +87,11 @@ class ComponentesController extends Controller
     public function update(Request $request, $id)
     {
         $componentes = Componente::find($id);
-        $componentes->nombre = $request->nombre;
+        $componentes->nombre = strtoupper($request->nombre);
         $componentes->cantidad = $request->cantidad;
         $componentes->descripcion = $request->descripcion;
-        $componentes->estado="disponible";
+        $componentes->referencia = strtoupper($request->referencia);
+        $componentes->estado=strtoupper("disponible");
         $componentes->save();
         return redirect()->route ('admin.componentes.index');
     }

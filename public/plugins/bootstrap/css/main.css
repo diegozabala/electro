@@ -85,7 +85,7 @@ h1,
 	margin-top: 20px;
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
-	background-color: #346473;
+	background-color: #485E88;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -142,7 +142,7 @@ h1,
 	clear: both;
 	font-weight: normal;
 	line-height: 1.428571429;
-	color: #EAEFC4;
+	color: #fff;
 	white-space: normal;
 }
 
@@ -167,21 +167,21 @@ h1,
 	margin-bottom: 3px;
 }
 .navbar-default {
-	background-color: #346473;
+	background-color: #485E88;
 	border-color: #e7e7e7;
 }
 .navbar-default .navbar-nav>li>a {
-	color: #EAEFC4;
+	color: #fff;
 }
 .navbar-default .navbar-brand {
-	color: #EAEFC4;
+	color: #fff;
 }
 .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
-	color: #EAEFC4;
+	color: #fff;
 	background-color: #6babbf;
 }
 .panel-heading{
-	background-color: #eaefc4;
+	background-color: #fff;
 }
 .form-control{
 	background-color: #FFFFFF;

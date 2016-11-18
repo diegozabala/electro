@@ -10,17 +10,15 @@
             <a href="{{route('admin.prestamos.create')}}" class="btn btn-success">Nuevo Prestamo</a>
         </div>
         <div class="form-group">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label >Osciloscopios: {{$osciloscopios}}</label>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="form-group col-md-3">
-                <label>Generadores: {{$bananas}}</label>
+            <div class="form-group col-md-2">
+                <label>Generadores: {{$generadores}}</label>
             </div>
-        </div>
-        <div class="form-group">
-                <label >Fuentes: {{$multimetros}}</label>
+            <div class="form-group ol-md-2">
+                <label >Fuentes: {{$fuentes}}</label>
+            </div>
         </div>
 
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

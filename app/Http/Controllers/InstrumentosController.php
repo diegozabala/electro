@@ -43,11 +43,11 @@ class InstrumentosController extends Controller
     public function store(Request $request)
     {
         $instrumentos = new Instrumento($request->all());
-        $instrumentos->nombre = $request->nombre;
+        $instrumentos->nombre = strtoupper($request->nombre);
         $instrumentos->cantidad = $request->cantidad;
         $instrumentos->descripcion = $request->descripcion;
-        $instrumentos->tipo=$request->tipo;
-        $instrumentos->estado="disponible";
+        $instrumentos->tipo=strtoupper($request->tipo);
+        $instrumentos->estado=strtoupper("disponible");
         $instrumentos->save();
         return redirect()->route ('admin.instrumentos.index');
 
@@ -87,10 +87,11 @@ class InstrumentosController extends Controller
     public function update(Request $request, $id)
     {
         $instrumentos = Instrumento::find($id);
-        $instrumentos->nombre = $request->nombre;
-        $instrumentos->cantidad = $request->cantidad;
+        $instrumentos->nombre = strtoupper($request->nombre);
+        $instrumentos->cantidad = strtoupper($request->cantidad);
         $instrumentos->descripcion = $request->descripcion;
-        $instrumentos->estado="disponible";
+        $instrumentos->tipo = strtoupper($request->tipo);
+        $instrumentos->estado=strtoupper("disponible");
         $instrumentos->save();
         return redirect()->route ('admin.instrumentos.index');
     }
