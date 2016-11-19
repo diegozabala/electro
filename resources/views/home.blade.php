@@ -9,10 +9,6 @@
             <h1>SIPFI!</h1>
             <h3>Bienvenido al Sistema Integrado de Prestamos de la Facultad de Ingeniería.</h3>
             <style>
-                .jumbotron{
-                    background-color: burlywood;
-                    
-                }
                 h1{
                     color:#EAEFC4;
                 }

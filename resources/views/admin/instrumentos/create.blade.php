@@ -38,9 +38,5 @@
 
 				</form>
 			</div>
-
-
 	</section>
-
-
-
+@include ('admin.template.partials.footer')

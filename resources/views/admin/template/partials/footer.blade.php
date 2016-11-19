@@ -38,7 +38,7 @@
             <ul class="list-unstyled clear-margins"><!-- widgets -->
                 <li class="widget-container widget_recent_news"><!-- widgets list -->
                     <h1 class="title-widget">Detalles de Contacto </h1>
-                    <div class="footerp"> 
+                    <div class="footer"> 
                         <h2 class="title-median">Facultad de Ingenieria</h2>
                         <p><b>Numeros de Ayuda</b>
                         <b style="color:#ffc106;">(8AM to 10PM):</b>  3217294966, +91-8130190010 </p>

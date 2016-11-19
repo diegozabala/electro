@@ -19,11 +19,11 @@
   				</div>
   				<div class="form-group">
   				    <label for="cantidad">Cantidad</label>
-    				<input type="text" class="form-control" name="cantidad" placeholder="Introduce la Cantidad" required>
+    				<input type="text" class="form-control" name="cantidad" placeholder="Introducir la Cantidad" required>
   				</div>
   				<div class="form-group">
   				    <label for="referencia">Referencia</label>
-    				<input type="text" class="form-control" name="referencia" placeholder="Introduce la Cantidad" required>
+    				<input type="text" class="form-control" name="referencia" placeholder="Introducir el nombre de la referencia" required>
   				</div>
   				<div class="form-group">
   				    <label for="descripcion">Descripción</label>

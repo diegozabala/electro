@@ -29,8 +29,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        $pass=bcrypt('root@hotmail.com');
-        DB::statement("INSERT INTO `users` (`name`,`email`,`password`,`apellido`,`cedula`,`imagen`,`rol`) VALUES ('ROOT','root@hotmail.com','$pass','','12345','hulk.png','admin')");
+        $pass=bcrypt('universidad@gmail.com');
+        DB::statement("INSERT INTO `users` (`name`,`email`,`password`,`apellido`,`cedula`,`imagen`,`rol`) VALUES ('ROOT','universidad@gmail.com','$pass','','12345','hulk.png','admin')");
     }
 
     /**
