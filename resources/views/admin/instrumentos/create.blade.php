@@ -22,10 +22,7 @@
     				<input type="text" class="form-control" name="cantidad" placeholder="Introduce la Cantidad" required>
   				</div>
 				<div class="form-group">
-					<select name="tipo" class="form-control">
-						<option value="pc">Analógico</option>
-						<option value="apuntador">Digital</option>						
-					</select>
+					<input type="text" class="form-control" name="tipo" placeholder="Introduzca el tipo" required>
 				</div>
   				<div class="form-group">
   				    <label for="descripcion">Descripción</label>

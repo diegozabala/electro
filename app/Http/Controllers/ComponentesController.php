@@ -46,7 +46,7 @@ class ComponentesController extends Controller
         $componentes->nombre = strtoupper($request->nombre);
         $componentes->cantidad = $request->cantidad;
         $componentes->descripcion = $request->descripcion;
-        $componentes->referencia=strtoupper($request->referencia);
+        $componentes->referencia=strtoupper($request->referencia . ' ' . $request->capacidad);
         $componentes->estado=strtoupper("disponible");
         $componentes->save();
         return redirect()->route ('admin.componentes.index');

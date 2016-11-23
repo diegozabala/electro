@@ -40,8 +40,12 @@
 
                 @foreach($instrumentos as $instrumento)
                     <?php
-                        for ($i = 0;$i< $instrumento->cantidad; $i++){
-                            $cantidades[$i] = $i+1;
+                        if($instrumento->cantidad > 0){
+                            for ($i = 0;$i< $instrumento->cantidad; $i++){
+                                $cantidades[$i] = $i+1;
+                            }
+                        }else{
+                            $cantidades[0] = 0;
                         }
                     ?> 
                     <label><input type="checkbox" name="prestamo_equipos[]" value="{{$instrumento->id}}" onclick="sel<?php echo $instrumento->id;?>.disabled=!this.checked" >
@@ -68,26 +72,122 @@
                 <h2>Componentes</h2>
             </div>
             <ul class="list-unstyled">
-                @foreach($componentes as $componente)
-                    <?php
-                        for ($i = 0;$i< $componente->cantidad; $i ++){
-                            $cantidades[$i] = $i+1;
-                        }  
-                    ?> 
-                    <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->id}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
-                        <label>{{$componente->nombre . ' ' . $componente->referencia}}</label>
 
-                        <select id="sel2<?php echo $componente->id;?>" type="number" name="cantidad_del_componente[]" disabled="disabled">
-                            <option value="0">0</option>
-                            @foreach($cantidades as $num)
-                                <option value="{{$num}}">{{$num}}</option>
-                            @endforeach 
-                        </select>
-                    </label>
-                    <?php
-                        unset($cantidades);
-                        $cantidades = array(); 
-                    ?>
+                <?php
+                    for ($i = 0;$i<30; $i ++){
+                        $cantidad[$i] = $i+1;
+                    }  
+                ?>
+
+                <label><input type="checkbox" name="RESISTENCIA OHMIOS" value="" onclick="sel2resistenciasohmios.disabled=!this.checked">
+                    <label>RESISTENCIA</label>
+                    <input type="text" size="3" name="capacidad_ohmios">
+                    <label>Ω</label>
+
+                    <select id="sel2resistenciasohmios" type="number" name="cantidad_de_la_resistencia_ohmios" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                <label><input type="checkbox" name="RESISTENCIA KILOOHMIOS" value="" onclick="sel2resistenciaskiloohmios.disabled=!this.checked">
+                    <label>RESISTENCIA</label>
+                    <input type="text" size="3" name="capacidad_kiloohmios">
+                    <label>KΩ</label>
+
+                    <select id="sel2resistenciaskiloohmios" type="number" name="cantidad_de_la_resistencia_kiloohmios" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                <label><input type="checkbox" name="RESISTENCIA MEGAOHMIOS" value="" onclick="sel2resistenciasmegaohmios.disabled=!this.checked">
+                    <label>RESISTENCIA</label>
+                    <input type="text" size="3" name="capacidad_megaohmios">
+                    <label>MΩ</label>
+
+                    <select id="sel2resistenciasmegaohmios" type="number" name="cantidad_de_la_resistencia_megaohmios" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                <label><input type="checkbox" name="CONDENSADOR NANOFARADIOS" value="" onclick="sel2condensadoresnanofaradios.disabled=!this.checked">
+                    <label>CONDENSADOR</label>
+                    <input type="text" size="3" name="capacidad_nanofaradios">
+                    <label>nF</label>
+
+                    <select id="sel2condensadoresnanofaradios" type="number" name="cantidad_de_la_condensadores_nanofaradios" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                <label><input type="checkbox" name="CONDENSADOR PICOFARADIOS" value="" onclick="sel2condensadorespicofaradios.disabled=!this.checked">
+                    <label>CONDENSADOR</label>
+                    <input type="text" size="3" name="capacidad_picofaradios">
+                    <label>pF</label>
+
+                    <select id="sel2condensadorespicofaradios" type="number" name="cantidad_del_condensador_picofaradios" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                <label><input type="checkbox" name="CONDENSADOR MICROFARADIOS" value="" onclick="sel2condensadoresmicrofaradios.disabled=!this.checked">
+                    <label>CONDENSADOR</label>
+                    <input type="text" size="3" name="capacidad_microfaradios">
+                    <label>uF</label>
+
+                    <select id="sel2condensadoresmicrofaradios" type="number" name="cantidad_del_condensador_microfaradios" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+                </label>
+
+                <?php
+                    unset($cantidad);
+                    $cantidad = array(); 
+                ?>
+
+                @foreach($componentes as $componente)
+                    @if($componente->nombre != "RESISTENCIA")
+                        <?php
+                            if($componente->cantidad > 0){
+                                for ($i = 0;$i< $componente->cantidad; $i ++){
+                                    $cantidades[$i] = $i+1;
+                                }
+                            }else{
+                                $cantidades[0] = 0;
+                            }  
+                        ?> 
+                        <label><input type="checkbox" name="prestamo_componentes[]" value="{{$componente->id}}" onclick="sel2<?php echo $componente->id;?>.disabled=!this.checked">
+                            <label>{{$componente->nombre . ' ' . $componente->referencia}}</label>
+
+                            <select id="sel2<?php echo $componente->id;?>" type="number" name="cantidad_del_componente[]" disabled="disabled">
+                                <option value="0">0</option>
+                                @foreach($cantidades as $num)
+                                    <option value="{{$num}}">{{$num}}</option>
+                                @endforeach 
+                            </select>
+                        </label>
+                        <?php
+                            unset($cantidades);
+                            $cantidades = array(); 
+                        ?>
+                    @endif
                 @endforeach
             </ul>
         </div>

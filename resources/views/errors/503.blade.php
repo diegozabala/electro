@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Be right back.</div>
+                <div class="title">ESTA TRATANDO DE ACCEDER A ALGO QUE NO EXISTE EN LA BASE DE DATOS.</div>
             </div>
         </div>
     </body>
