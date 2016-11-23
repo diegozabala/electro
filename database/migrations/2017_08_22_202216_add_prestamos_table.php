@@ -36,10 +36,10 @@ class AddPrestamosTable extends Migration
         //Las llaves foraneas se tienen que crear en un Schema::table porque es donde se crean las relaciones
         //En el Schema::create solo se pueden crear columnas 
         Schema::table('prestamos', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('estudiante_id')->references('id')->on('estudiantes');
-            $table->foreign('equipo_id')->references('id')->on('instrumentos');
-            $table->foreign('componente_id')->references('id')->on('componentes');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('estudiante_id')->references('id')->on('estudiantes')->onDelete('cascade');
+            $table->foreign('equipo_id')->references('id')->on('instrumentos')->onDelete('cascade');
+            $table->foreign('componente_id')->references('id')->on('componentes')->onDelete('cascade');
    });
     }
 

@@ -90,7 +90,10 @@ class PrestamosController extends Controller
 * El siguiente metodo es para agregar los paquetes como un prestamo individual
 */
         if($request->prestamo_paquetes != ''){
+            // Se lee el tamaño de letras que tiene el paquete seleccionado y caso de ser 3 entra aqui
             if(strlen($request->prestamo_paquetes) == 3){
+
+                //aqui agregamos el prestamo del osciloscopio y buscamos en la base de datos el osciloscopio y le restamos 1 a la cantidad que tiene disponible
                 if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
                     $prestamoNuevo = new Prestamo();
                     $instrumentos = Instrumento::where('nombre','=','OSCILOSCOPIO')->get();
@@ -115,13 +118,17 @@ class PrestamosController extends Controller
                         $prestamoNuevo->save();
                     }
                 }
+                //comparamos si en la base de datos hay generadores
                 if(Instrumento::where('nombre','=','GENERADOR')->get() != null){
                     $prestamoNuevo = new Prestamo();
+                    //buscamos los generadores disponibles en la base de datos
                     $instrumentos = Instrumento::where('nombre','=','GENERADOR')->get();
+                    //verificamos que si se hallan encontrado generadores
                     if(sizeof($instrumentos) !=0){
                         $contador=0;
-
+                        //metodo para recorrer todos los generadores encontrados
                         foreach ($instrumentos as $instrumento) {
+                            //le restamos 1 a la cantidad disponible del generador
                             if($contador < 2){
                                 $resta = $instrumento->cantidad - 1;
                                 $instrumento->cantidad = $resta;
@@ -141,11 +148,12 @@ class PrestamosController extends Controller
                         $prestamoNuevo->save();
                     }
                 }
+                //buscamos si hay fuentes en las bases de datos
                 if(Instrumento::where('nombre','=','FUENTE')->get() != null){
                     $prestamoNuevo = new Prestamo();
                     $instrumentos = Instrumento::where('nombre','=','FUENTE')->get();
+                    //comparamos que se hayan encontrado fuentes o que no la variable $instrumentos no sea cero
                     if(sizeof($instrumentos) !=0){
-                        dd("entre y es nulo");
                         $contador=0;
                         foreach ($instrumentos as $instrumento) {
                             if($contador < 2){
@@ -167,11 +175,181 @@ class PrestamosController extends Controller
                         $prestamoNuevo->save();
                     }
                 }
-
-            }else{
-
             }
+            //Comparamos si se eligieron paquetes solo con 2
+            if(strlen($request->prestamo_paquetes) == 2){
 
+                if($request->prestamo_paquetes == 'FO'){
+                    if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
+                        $prestamoNuevo = new Prestamo();
+                        $instrumentos = Instrumento::where('nombre','=','OSCILOSCOPIO')->get();
+                        if(sizeof($instrumentos) !=0){
+                            $contador=0;
+                            foreach ($instrumentos as $instrumento) {
+                                if($contador < 2){
+                                    $resta = $instrumento->cantidad - 1;
+                                    $instrumento->cantidad = $resta;
+                                    $prestamoNuevo->user_id=$request->usuario_id;
+                                    $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+                                    $prestamoNuevo->equipo_id=$instrumento->id;
+                                    $prestamoNuevo->componente_id=null;
+                                    $prestamoNuevo->cantidad_equipo=1;
+                                    $prestamoNuevo->cantidad_componente=0;
+                                    $prestamoNuevo->estado="ACTIVO";
+                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $contador = $contador + 1;
+                                    $instrumento->save();
+                                }
+                            }
+                            $prestamoNuevo->save();
+                        }
+                    }
+
+                    if(Instrumento::where('nombre','=','FUENTE')->get() != null){
+                        $prestamoNuevo = new Prestamo();
+                        $instrumentos = Instrumento::where('nombre','=','FUENTE')->get();
+                        //comparamos que se hayan encontrado fuentes o que no la variable $instrumentos no sea cero
+                        if(sizeof($instrumentos) !=0){
+                            $contador=0;
+                            foreach ($instrumentos as $instrumento) {
+                                if($contador < 2){
+                                    $resta = $instrumento->cantidad - 1;
+                                    $instrumento->cantidad = $resta;
+                                    $prestamoNuevo->user_id=$request->usuario_id;
+                                    $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+                                    $prestamoNuevo->equipo_id=$instrumento->id;
+                                    $prestamoNuevo->componente_id=null;
+                                    $prestamoNuevo->cantidad_equipo=1;
+                                    $prestamoNuevo->cantidad_componente=0;
+                                    $prestamoNuevo->estado="ACTIVO";
+                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $contador = $contador + 1;
+                                    $instrumento->save();
+                                }
+                            }
+
+                            $prestamoNuevo->save();
+                        }
+                    }
+
+                }
+                elseif($request->prestamo_paquetes == 'FG'){
+                    //comparamos si en la base de datos hay generadores
+                    if(Instrumento::where('nombre','=','GENERADOR')->get() != null){
+                        $prestamoNuevo = new Prestamo();
+                        //buscamos los generadores disponibles en la base de datos
+                        $instrumentos = Instrumento::where('nombre','=','GENERADOR')->get();
+                        //verificamos que si se hallan encontrado generadores
+                        if(sizeof($instrumentos) !=0){
+                            $contador=0;
+                            //metodo para recorrer todos los generadores encontrados
+                            foreach ($instrumentos as $instrumento) {
+                                //le restamos 1 a la cantidad disponible del generador
+                                if($contador < 2){
+                                    $resta = $instrumento->cantidad - 1;
+                                    $instrumento->cantidad = $resta;
+                                    $prestamoNuevo->user_id=$request->usuario_id;
+                                    $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+                                    $prestamoNuevo->equipo_id=$instrumento->id;
+                                    $prestamoNuevo->componente_id=null;
+                                    $prestamoNuevo->cantidad_equipo=1;
+                                    $prestamoNuevo->cantidad_componente=0;
+                                    $prestamoNuevo->estado="ACTIVO";
+                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $contador = $contador + 1;
+                                    $instrumento->save();
+                                }   
+                            }
+
+                            $prestamoNuevo->save();
+                        }
+                    }
+                    //buscamos si hay fuentes en las bases de datos
+                    if(Instrumento::where('nombre','=','FUENTE')->get() != null){
+                        $prestamoNuevo = new Prestamo();
+                        $instrumentos = Instrumento::where('nombre','=','FUENTE')->get();
+                        //comparamos que se hayan encontrado fuentes o que no la variable $instrumentos no sea cero
+                        if(sizeof($instrumentos) !=0){
+                            $contador=0;
+                            foreach ($instrumentos as $instrumento) {
+                                if($contador < 2){
+                                    $resta = $instrumento->cantidad - 1;
+                                    $instrumento->cantidad = $resta;
+                                    $prestamoNuevo->user_id=$request->usuario_id;
+                                    $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+                                    $prestamoNuevo->equipo_id=$instrumento->id;
+                                    $prestamoNuevo->componente_id=null;
+                                    $prestamoNuevo->cantidad_equipo=1;
+                                    $prestamoNuevo->cantidad_componente=0;
+                                    $prestamoNuevo->estado="ACTIVO";
+                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $contador = $contador + 1;
+                                    $instrumento->save();
+                                }
+                            }
+
+                            $prestamoNuevo->save();
+                        }
+                    }
+                }
+                elseif($request->prestamo_paquetes == 'OG'){
+                    //aqui agregamos el prestamo del osciloscopio y buscamos en la base de datos el osciloscopio y le restamos 1 a la cantidad que tiene disponible
+                    if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
+                        $prestamoNuevo = new Prestamo();
+                        $instrumentos = Instrumento::where('nombre','=','OSCILOSCOPIO')->get();
+                        if(sizeof($instrumentos) !=0){
+                            $contador=0;
+                            foreach ($instrumentos as $instrumento) {
+                                if($contador < 2){
+                                    $resta = $instrumento->cantidad - 1;
+                                    $instrumento->cantidad = $resta;
+                                    $prestamoNuevo->user_id=$request->usuario_id;
+                                    $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+                                    $prestamoNuevo->equipo_id=$instrumento->id;
+                                    $prestamoNuevo->componente_id=null;
+                                    $prestamoNuevo->cantidad_equipo=1;
+                                    $prestamoNuevo->cantidad_componente=0;
+                                    $prestamoNuevo->estado="ACTIVO";
+                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $contador = $contador + 1;
+                                    $instrumento->save();
+                                }
+                            }
+                            $prestamoNuevo->save();
+                        }
+                    }
+                    //comparamos si en la base de datos hay generadores
+                    if(Instrumento::where('nombre','=','GENERADOR')->get() != null){
+                        $prestamoNuevo = new Prestamo();
+                        //buscamos los generadores disponibles en la base de datos
+                        $instrumentos = Instrumento::where('nombre','=','GENERADOR')->get();
+                        //verificamos que si se hallan encontrado generadores
+                        if(sizeof($instrumentos) !=0){
+                            $contador=0;
+                            //metodo para recorrer todos los generadores encontrados
+                            foreach ($instrumentos as $instrumento) {
+                                //le restamos 1 a la cantidad disponible del generador
+                                if($contador < 2){
+                                    $resta = $instrumento->cantidad - 1;
+                                    $instrumento->cantidad = $resta;
+                                    $prestamoNuevo->user_id=$request->usuario_id;
+                                    $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+                                    $prestamoNuevo->equipo_id=$instrumento->id;
+                                    $prestamoNuevo->componente_id=null;
+                                    $prestamoNuevo->cantidad_equipo=1;
+                                    $prestamoNuevo->cantidad_componente=0;
+                                    $prestamoNuevo->estado="ACTIVO";
+                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $contador = $contador + 1;
+                                    $instrumento->save();
+                                }   
+                            }
+
+                            $prestamoNuevo->save();
+                        }
+                    }
+                }
+            }
         }
 
 /*

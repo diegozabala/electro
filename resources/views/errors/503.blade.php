@@ -4,7 +4,6 @@
         <title>Be right back.</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
         <style>
             html, body {
                 height: 100%;
@@ -38,9 +37,15 @@
         </style>
     </head>
     <body>
+        <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/main.css')}}">
+        <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.css')}}">
         <div class="container">
-            <div class="content">
-                <div class="title">ESTA TRATANDO DE ACCEDER A ALGO QUE NO EXISTE EN LA BASE DE DATOS.</div>
+            <div class="row">
+                <div class="alert alert-danger-alt alert-dismissable">
+                    <span class="glyphicon glyphicon-certificate"></span>
+                    <a href="{{ url()->previous() }}" class="btn btn-default"><strong>Regresar</strong></a>
+                    <strong>ERROR!</strong> Esta tratando de acceder a un dato que <a target="_blank"><strong>NO EXISTE</strong></a> en la <a target="_blank"><strong>BASE DE DATOS</strong></a>
+                </div>   
             </div>
         </div>
     </body>

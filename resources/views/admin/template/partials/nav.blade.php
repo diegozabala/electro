@@ -60,7 +60,11 @@
                                 <li><a href="{{url('admin/prestamos')}}">Listar Préstamos</a></li>
                                 <li><a href="{{url('admin/prestamos')}}">Eliminar Préstamos</a></li>
                                 @if(Auth::user()->rol=="auxiliar")
+                                    <li class="dropdown-header">Estudiantes</li>
+                                    <li><a href="{{url('admin/estudiantes/create')}}">Crear Estudiantes</a></li>
                                     <li><a href="{{url('admin/estudiantes')}}">Listar Estudiantes</a></li>
+                                    <li><a href="{{url('admin/estudiantes')}}">Eliminar Estudiantes</a></li>
+                                    <li class="divider"></li>
                                 @endif
 
                             </ul>

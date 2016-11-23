@@ -195,3 +195,6 @@ h1,
 .jumbotron {
     background-color: #cecece;
 }
+
+.alert-danger-alt { border-color: #B63E5A;background: #E26868;color: #333; }
+.alert a {color: #485e88;}
