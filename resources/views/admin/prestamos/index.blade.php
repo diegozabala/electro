@@ -21,7 +21,7 @@
             </div>
         </div>
 
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
                 <h3 class="panel-title">Lista de Equipos</h3>
@@ -62,7 +62,8 @@
                 </tbody>
             </table>
         </div>
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+-->
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
@@ -104,6 +105,48 @@
                 </tbody>
             </table>
         </div>
+-->
+
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Lista de Prestamos</h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
+                </div>
+            </div>
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="Estudiante" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Auxiliar" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Elementos" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Observaciones" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Hora y fecha" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Acción" disabled></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($prestamos as $prestamo)
+                        @if($prestamo->estado != "INACTIVO")
+                            <tr class="table-info">
+                                <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
+                                <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
+                                <td>{{$prestamo->elementos}}</td>
+                                <td>{{$prestamo->observaciones}}</td>
+                                <td>{{$prestamo->created_at}}</td>
+                                <td>
+                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btn btn-danger">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </section>
 

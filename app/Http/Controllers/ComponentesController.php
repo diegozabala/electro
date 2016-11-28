@@ -45,7 +45,7 @@ class ComponentesController extends Controller
         $componentes = new Componente($request->all());
         $componentes->nombre = strtoupper($request->nombre);
         $componentes->cantidad = $request->cantidad;
-        $componentes->descripcion = $request->descripcion;
+        $componentes->descripcion =strtoupper($request->descripcion);
         $componentes->referencia=strtoupper($request->referencia . ' ' . $request->capacidad);
         $componentes->estado=strtoupper("disponible");
         $componentes->save();
@@ -89,7 +89,7 @@ class ComponentesController extends Controller
         $componentes = Componente::find($id);
         $componentes->nombre = strtoupper($request->nombre);
         $componentes->cantidad = $request->cantidad;
-        $componentes->descripcion = $request->descripcion;
+        $componentes->descripcion = strtoupper($request->descripcion);
         $componentes->referencia = strtoupper($request->referencia);
         $componentes->estado=strtoupper("disponible");
         $componentes->save();

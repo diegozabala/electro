@@ -16,19 +16,18 @@
             </div>
         </div>
 
+        <ul class="list-group">
+            <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
+        </ul>
+
         <form class="form-horizontal" role="form" method="POST"
               action="{{ route('admin.prestamos.store') }}">
             {!! csrf_field() !!}
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-            <ul class="list-group">
-                <li class="list-group-item text-center">{{$estudiante[0]->nombre_estudiante . " ". $estudiante[0]->apellido_estudiante }}</li>
-            </ul>
-
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-<div class="form-group">
-    <div class="row col-list">
+    <div class="rowPrestamos col-list">
 
         <div class="col-md-5 t1">
             <div class="col-head text-center">
@@ -58,6 +57,7 @@
                             @endforeach 
                         </select>
                     </label>
+                    <br />
                     <?php
                         unset($cantidades);
                         $cantidades = array(); 
@@ -74,87 +74,216 @@
             <ul class="list-unstyled">
 
                 <?php
-                    for ($i = 0;$i<30; $i ++){
+                    for ($i = 0;$i<20; $i ++){
                         $cantidad[$i] = $i+1;
                     }  
                 ?>
 
-                <label><input type="checkbox" name="RESISTENCIA OHMIOS" value="" onclick="sel2resistenciasohmios.disabled=!this.checked">
-                    <label>RESISTENCIA</label>
-                    <input type="text" size="3" name="capacidad_ohmios">
-                    <label>Ω</label>
-
-                    <select id="sel2resistenciasohmios" type="number" name="cantidad_de_la_resistencia_ohmios" disabled="disabled">
+                <label><input type="checkbox" name="RESISTENCIA OHMIOS" value="">
+                    <label>RESISTENCIA </label>
+                    <label>Ω </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_ohmios">
+<!--
+                    <input type="text" style="width:35px;height:20.5px" name="cantidad_ohmios">
+                    <select id="sel2resistenciasohmios1" type="number" name="cantidad_de_la_resistencia_ohmios1" disabled="disabled">
                         <option value="0">0</option>
                         @foreach($cantidad as $num)
                             <option value="{{$num}}">{{$num}}</option>
                         @endforeach 
                     </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_ohmios2">
+                    <select id="sel2resistenciasohmios2" type="number" name="cantidad_de_la_resistencia_ohmios2" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_ohmios3">
+                    <select id="sel2resistenciasohmios3" type="number" name="cantidad_de_la_resistencia_ohmios3" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+-->
                 </label>
 
-                <label><input type="checkbox" name="RESISTENCIA KILOOHMIOS" value="" onclick="sel2resistenciaskiloohmios.disabled=!this.checked">
-                    <label>RESISTENCIA</label>
-                    <input type="text" size="3" name="capacidad_kiloohmios">
-                    <label>KΩ</label>
 
-                    <select id="sel2resistenciaskiloohmios" type="number" name="cantidad_de_la_resistencia_kiloohmios" disabled="disabled">
+                <label><input type="checkbox" name="RESISTENCIA KILOOHMIOS" value="">
+                    <label>RESISTENCIA </label>
+                    <label>kΩ </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_kiloohmios">
+<!--
+                    <input type="text" style="width:35px;height:20.5px" name="cantidad_kiloohmios">         
+                    <select id="sel2resistenciaskiloohmios1" type="number" name="cantidad_de_la_resistencia_kiloohmios1" disabled="disabled">
                         <option value="0">0</option>
                         @foreach($cantidad as $num)
                             <option value="{{$num}}">{{$num}}</option>
                         @endforeach 
                     </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_kiloohmios2">                    
+
+                    <select id="sel2resistenciaskiloohmios2" type="number" name="cantidad_de_la_resistencia_kiloohmios2" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_kiloohmios3">                    
+
+                    <select id="sel2resistenciaskiloohmios3" type="number" name="cantidad_de_la_resistencia_kiloohmios3" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+-->
                 </label>
 
-                <label><input type="checkbox" name="RESISTENCIA MEGAOHMIOS" value="" onclick="sel2resistenciasmegaohmios.disabled=!this.checked">
-                    <label>RESISTENCIA</label>
-                    <input type="text" size="3" name="capacidad_megaohmios">
-                    <label>MΩ</label>
+                <label><input type="checkbox" name="RESISTENCIA MILIOHMIOS" value="" >
+                    <label>RESISTENCIA </label>
+                    <label>mΩ </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_miliohmios">
 
-                    <select id="sel2resistenciasmegaohmios" type="number" name="cantidad_de_la_resistencia_megaohmios" disabled="disabled">
+<!--
+                    <input type="text" style="width:35px;height:20.5px" name="cantidad_megaohmios">         
+                    <select id="sel2resistenciasmegaohmios1" type="number" name="cantidad_de_la_resistencia_megaohmios1" disabled="disabled">
                         <option value="0">0</option>
                         @foreach($cantidad as $num)
                             <option value="{{$num}}">{{$num}}</option>
                         @endforeach 
                     </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_megaohmios2">                    
+
+                    <select id="sel2resistenciasmegaohmios2" type="number" name="cantidad_de_la_resistencia_megaohmios2" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_megaohmios3">                    
+
+                    <select id="sel2resistenciasmegaohmios3" type="number" name="cantidad_de_la_resistencia_megaohmios3" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+-->
                 </label>
 
-                <label><input type="checkbox" name="CONDENSADOR NANOFARADIOS" value="" onclick="sel2condensadoresnanofaradios.disabled=!this.checked">
-                    <label>CONDENSADOR</label>
-                    <input type="text" size="3" name="capacidad_nanofaradios">
-                    <label>nF</label>
-
-                    <select id="sel2condensadoresnanofaradios" type="number" name="cantidad_de_la_condensadores_nanofaradios" disabled="disabled">
+                <label><input type="checkbox" name="CONDENSADOR NANOFARADIOS" value="">
+                    <label>CONDENSADOR </label>
+                    <label>nF </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_nanofaradios">
+<!--
+                    <input type="text" style="width:35px;height:20.5px" name="cantidad_nanofaradios">
+                    <select id="sel2condensadoresnanofaradios1" type="number" name="cantidad_de_la_condensadores_nanofaradios1" disabled="disabled">
                         <option value="0">0</option>
                         @foreach($cantidad as $num)
                             <option value="{{$num}}">{{$num}}</option>
                         @endforeach 
                     </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_nanofaradios2">                   
+
+                    <select id="sel2condensadoresnanofaradios2" type="number" name="cantidad_de_la_condensadores_nanofaradios2" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_nanofaradios3">                   
+
+                    <select id="sel2condensadoresnanofaradios3" type="number" name="cantidad_de_la_condensadores_nanofaradios3" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+-->
                 </label>
 
-                <label><input type="checkbox" name="CONDENSADOR PICOFARADIOS" value="" onclick="sel2condensadorespicofaradios.disabled=!this.checked">
-                    <label>CONDENSADOR</label>
-                    <input type="text" size="3" name="capacidad_picofaradios">
-                    <label>pF</label>
-
-                    <select id="sel2condensadorespicofaradios" type="number" name="cantidad_del_condensador_picofaradios" disabled="disabled">
+                <label><input type="checkbox" name="CONDENSADOR PICOFARADIOS" value="">
+                    <label>CONDENSADOR </label>
+                    <label>pF </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_picofaradios">
+<!--
+                    <input type="text" style="width:35px;height:20.5px" name="cantidad_picofaradios">
+                    <select id="sel2condensadorespicofaradios1" type="number" name="cantidad_del_condensador_picofaradios1" disabled="disabled">
                         <option value="0">0</option>
                         @foreach($cantidad as $num)
                             <option value="{{$num}}">{{$num}}</option>
                         @endforeach 
                     </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_picofaradios2">                    
+                    <select id="sel2condensadorespicofaradios2" type="number" name="cantidad_del_condensador_picofaradios2" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_picofaradios3">                    
+                    <select id="sel2condensadorespicofaradios3" type="number" name="cantidad_del_condensador_picofaradios3" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+-->
                 </label>
 
-                <label><input type="checkbox" name="CONDENSADOR MICROFARADIOS" value="" onclick="sel2condensadoresmicrofaradios.disabled=!this.checked">
-                    <label>CONDENSADOR</label>
-                    <input type="text" size="3" name="capacidad_microfaradios">
-                    <label>uF</label>
-
-                    <select id="sel2condensadoresmicrofaradios" type="number" name="cantidad_del_condensador_microfaradios" disabled="disabled">
+                <label><input type="checkbox" name="CONDENSADOR MICROFARADIOS" value="">
+                    <label>CONDENSADOR </label>
+                    <label>uF </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_microfaradios">                  
+<!--
+                    <input type="text" style="width:35px;height:20.5px" name="cantidad_microfaradios">
+                    <select id="sel2condensadoresmicrofaradios1" type="number" name="cantidad_del_condensador_microfaradios1" disabled="disabled">
                         <option value="0">0</option>
                         @foreach($cantidad as $num)
                             <option value="{{$num}}">{{$num}}</option>
                         @endforeach 
                     </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_microfaradios2">                    
+                    <select id="sel2condensadoresmicrofaradios2" type="number" name="cantidad_del_condensador_microfaradios2" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+
+                    <input type="text" style="width:35px;height:20.5px" name="capacidad_microfaradios3">                    
+                    <select id="sel2condensadoresmicrofaradios3" type="number" name="cantidad_del_condensador_microfaradios3" disabled="disabled">
+                        <option value="0">0</option>
+                        @foreach($cantidad as $num)
+                            <option value="{{$num}}">{{$num}}</option>
+                        @endforeach 
+                    </select>
+-->
+                </label>
+
+                <label><input type="checkbox" name="INDUCTOR" value="">
+                    <label>INDUCTOR </label>
+                    <label>uH </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_inductor"> 
+                </label>
+
+
+                <label><input type="checkbox" name="POTENCIOMETRO" value="">
+                    <label>POTENCIÓMETRO </label>
+                    <label>kΩ </label>
+                    <input type="text" placeholder="Ejemplo: 2.2x4; 2x4; 1.5x2" style="width:250px;height:20.5px" name="cantidad_potenciometro"> 
                 </label>
 
                 <?php
@@ -183,6 +312,7 @@
                                 @endforeach 
                             </select>
                         </label>
+                        <br />
                         <?php
                             unset($cantidades);
                             $cantidades = array(); 
@@ -194,7 +324,7 @@
         <div class="col-md-2 t3">
             <div class="col-head text-center">
                 <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
-                <h2>Paquete</h2>
+                <h2>Combo </h2>
             </div>
             <ul class="list-unstyled">
                 <select class="selectpicker" data-style="btn-primary" name="prestamo_paquetes">
@@ -207,8 +337,6 @@
             </ul>
         </div>
     </div>
-</div>
-
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                     <div class="form-group">
                         <label for="observaciones">Observaciones</label>

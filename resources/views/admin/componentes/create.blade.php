@@ -19,13 +19,13 @@
             </div>
 
             <div class="form-group">
-                <label for="cantidad">Cantidad</label>
+                <label for="cantidad">Cantidad del Componente</label>
                 <input type="text" class="form-control" name="cantidad" placeholder="Introducir la Cantidad" required>
             </div>
 
             <div class="form-group">
-                <label for="referencia">Valor del Resistor</label>
-                <input type="text" class="form-control" name="referencia" placeholder="Introducir el nombre de la referencia" required>
+                <label for="referencia">Valor</label>
+                <input type="number" step="any" class="form-control" name="referencia" placeholder="Introducir el nombre de la referencia" required>
             </div>
 
             <div class="form-group">
@@ -36,6 +36,7 @@
                     <option value="nF">nF</option>
                     <option value="pF">pF</option>
                     <option value="uF">uF</option>
+                    <option value="uF">uH</option>
                 </select>
             </div>
 

@@ -58,9 +58,9 @@ class EstudiantesController extends Controller
             $estudiantes= new Estudiante();
             $estudiantes->imagen=$name;
             $estudiantes->numero_documento=$request->numero_documento;
-            $estudiantes->nombre_estudiante = ucwords(strtolower($request->nombre_estudiante));
-            $estudiantes->apellido_estudiante = ucwords(strtolower($request->apellido_estudiante));
-            $estudiantes->carrera_id = ucwords(strtolower($carrera[0]->id));
+            $estudiantes->nombre_estudiante = strtoupper($request->nombre_estudiante);
+            $estudiantes->apellido_estudiante = strtoupper($request->apellido_estudiante);
+            $estudiantes->carrera_id = strtoupper($carrera[0]->id);
             
             $estudiantes->save();
             return redirect()->route ('admin.estudiantes.index');
@@ -114,8 +114,8 @@ class EstudiantesController extends Controller
             $name= 'estudiante_'.time(). ".".$file->getClientOriginalExtension();
             $path=public_path()."/images/estudiantes/";
             $file->move($path,$name);
-            $estudiante->nombre_estudiante = $request->nombre_estudiante;
-            $estudiante->apellido_estudiante = $request->apellido_estudiante;
+            $estudiante->nombre_estudiante =strtoupper($request->nombre_estudiante);
+            $estudiante->apellido_estudiante = strtoupper($request->apellido_estudiante);
             $estudiante->numero_documento = $request->numero_documento;
             $estudiante->imagen=$name;
 

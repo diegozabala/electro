@@ -21,6 +21,10 @@ class PrestamosController extends Controller
      */
     public function index()
     {
+        $prestamos= DB::table('estudiantes')
+                    ->join('prestamos','estudiantes.id','=','prestamos.estudiante_id')
+                    ->join('users','users.id','=','prestamos.user_id')
+                    ->select('prestamos.*','estudiantes.nombre_estudiante','estudiantes.apellido_estudiante','estudiantes.numero_documento','users.name','users.apellido')->get();
 
         $equiposPrestados= DB::table('estudiantes')
             ->join('prestamos','estudiantes.id','=','prestamos.estudiante_id')
@@ -65,7 +69,7 @@ class PrestamosController extends Controller
             ->where('prestamos.estado','ACTIVO')->where('instrumentos.nombre','LIKE','MULT%')->sum('prestamos.cantidad_equipo');
 
         return view('admin/prestamos/index')->with('prestamosEquipos',$equiposPrestados)->with('prestamosComponentes',$componentesPrestados)->with('prestamosPaquetes',$paquetesPrestados)->with('osciloscopios',$osciloscopios)
-            ->with('generadores',$generadores)->with('fuentes',$fuentes)->with('multimetros',$multimetros);
+            ->with('generadores',$generadores)->with('fuentes',$fuentes)->with('multimetros',$multimetros)->with('prestamos',$prestamos);
     }
 
     /**
@@ -86,16 +90,18 @@ class PrestamosController extends Controller
      */
     public function store(Request $request)
     {
+        $prestamoNuevo = new Prestamo();
+        $cosasPrestadas = 'Se presto: ' . "\n";
 /*
 * El siguiente metodo es para agregar los paquetes como un prestamo individual
 */
         if($request->prestamo_paquetes != ''){
             // Se lee el tamaño de letras que tiene el paquete seleccionado y caso de ser 3 entra aqui
             if(strlen($request->prestamo_paquetes) == 3){
-
+                $cosasPrestadas = $cosasPrestadas . $request->prestamo_paquetes . ' Cantidad= 1' . "\n";
                 //aqui agregamos el prestamo del osciloscopio y buscamos en la base de datos el osciloscopio y le restamos 1 a la cantidad que tiene disponible
                 if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
-                    $prestamoNuevo = new Prestamo();
+                    //$prestamoNuevo = new Prestamo();
                     $instrumentos = Instrumento::where('nombre','=','OSCILOSCOPIO')->get();
                     if(sizeof($instrumentos) !=0){
                         $contador=0;
@@ -103,6 +109,7 @@ class PrestamosController extends Controller
                             if($contador < 2){
                                 $resta = $instrumento->cantidad - 1;
                                 $instrumento->cantidad = $resta;
+                                /*
                                 $prestamoNuevo->user_id=$request->usuario_id;
                                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                 $prestamoNuevo->equipo_id=$instrumento->id;
@@ -110,17 +117,18 @@ class PrestamosController extends Controller
                                 $prestamoNuevo->cantidad_equipo=1;
                                 $prestamoNuevo->cantidad_componente=0;
                                 $prestamoNuevo->estado="ACTIVO";
-                                $prestamoNuevo->observaciones=$request->observaciones;
+                                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                */
                                 $contador = $contador + 1;
                                 $instrumento->save();
                             }
                         }
-                        $prestamoNuevo->save();
+                       // $prestamoNuevo->save();
                     }
                 }
                 //comparamos si en la base de datos hay generadores
                 if(Instrumento::where('nombre','=','GENERADOR')->get() != null){
-                    $prestamoNuevo = new Prestamo();
+                    //$prestamoNuevo = new Prestamo();
                     //buscamos los generadores disponibles en la base de datos
                     $instrumentos = Instrumento::where('nombre','=','GENERADOR')->get();
                     //verificamos que si se hallan encontrado generadores
@@ -132,6 +140,7 @@ class PrestamosController extends Controller
                             if($contador < 2){
                                 $resta = $instrumento->cantidad - 1;
                                 $instrumento->cantidad = $resta;
+                                /*
                                 $prestamoNuevo->user_id=$request->usuario_id;
                                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                 $prestamoNuevo->equipo_id=$instrumento->id;
@@ -139,18 +148,19 @@ class PrestamosController extends Controller
                                 $prestamoNuevo->cantidad_equipo=1;
                                 $prestamoNuevo->cantidad_componente=0;
                                 $prestamoNuevo->estado="ACTIVO";
-                                $prestamoNuevo->observaciones=$request->observaciones;
+                                $prestamoNuevo->observaciones=strtoupper($request->observaciones);
+                                */
                                 $contador = $contador + 1;
                                 $instrumento->save();
                             }   
                         }
 
-                        $prestamoNuevo->save();
+                        //$prestamoNuevo->save();
                     }
                 }
                 //buscamos si hay fuentes en las bases de datos
                 if(Instrumento::where('nombre','=','FUENTE')->get() != null){
-                    $prestamoNuevo = new Prestamo();
+                    //$prestamoNuevo = new Prestamo();
                     $instrumentos = Instrumento::where('nombre','=','FUENTE')->get();
                     //comparamos que se hayan encontrado fuentes o que no la variable $instrumentos no sea cero
                     if(sizeof($instrumentos) !=0){
@@ -159,6 +169,7 @@ class PrestamosController extends Controller
                             if($contador < 2){
                                 $resta = $instrumento->cantidad - 1;
                                 $instrumento->cantidad = $resta;
+                                /*
                                 $prestamoNuevo->user_id=$request->usuario_id;
                                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                 $prestamoNuevo->equipo_id=$instrumento->id;
@@ -166,22 +177,24 @@ class PrestamosController extends Controller
                                 $prestamoNuevo->cantidad_equipo=1;
                                 $prestamoNuevo->cantidad_componente=0;
                                 $prestamoNuevo->estado="ACTIVO";
-                                $prestamoNuevo->observaciones=$request->observaciones;
+                                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                */
                                 $contador = $contador + 1;
                                 $instrumento->save();
                             }
                         }
 
-                        $prestamoNuevo->save();
+                        //$prestamoNuevo->save();
                     }
                 }
             }
             //Comparamos si se eligieron paquetes solo con 2
             if(strlen($request->prestamo_paquetes) == 2){
+                $cosasPrestadas = $cosasPrestadas . $request->prestamo_paquetes . ' Cantidad= 1' . "\n";
 
                 if($request->prestamo_paquetes == 'FO'){
                     if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
-                        $prestamoNuevo = new Prestamo();
+                        //$prestamoNuevo = new Prestamo();
                         $instrumentos = Instrumento::where('nombre','=','OSCILOSCOPIO')->get();
                         if(sizeof($instrumentos) !=0){
                             $contador=0;
@@ -189,6 +202,7 @@ class PrestamosController extends Controller
                                 if($contador < 2){
                                     $resta = $instrumento->cantidad - 1;
                                     $instrumento->cantidad = $resta;
+                                    /*
                                     $prestamoNuevo->user_id=$request->usuario_id;
                                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                     $prestamoNuevo->equipo_id=$instrumento->id;
@@ -196,17 +210,18 @@ class PrestamosController extends Controller
                                     $prestamoNuevo->cantidad_equipo=1;
                                     $prestamoNuevo->cantidad_componente=0;
                                     $prestamoNuevo->estado="ACTIVO";
-                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                    */
                                     $contador = $contador + 1;
                                     $instrumento->save();
                                 }
                             }
-                            $prestamoNuevo->save();
+                            //$prestamoNuevo->save();
                         }
                     }
 
                     if(Instrumento::where('nombre','=','FUENTE')->get() != null){
-                        $prestamoNuevo = new Prestamo();
+                        //$prestamoNuevo = new Prestamo();
                         $instrumentos = Instrumento::where('nombre','=','FUENTE')->get();
                         //comparamos que se hayan encontrado fuentes o que no la variable $instrumentos no sea cero
                         if(sizeof($instrumentos) !=0){
@@ -215,6 +230,7 @@ class PrestamosController extends Controller
                                 if($contador < 2){
                                     $resta = $instrumento->cantidad - 1;
                                     $instrumento->cantidad = $resta;
+                                    /*
                                     $prestamoNuevo->user_id=$request->usuario_id;
                                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                     $prestamoNuevo->equipo_id=$instrumento->id;
@@ -222,13 +238,14 @@ class PrestamosController extends Controller
                                     $prestamoNuevo->cantidad_equipo=1;
                                     $prestamoNuevo->cantidad_componente=0;
                                     $prestamoNuevo->estado="ACTIVO";
-                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                    */
                                     $contador = $contador + 1;
                                     $instrumento->save();
                                 }
                             }
 
-                            $prestamoNuevo->save();
+                            //$prestamoNuevo->save();
                         }
                     }
 
@@ -236,7 +253,7 @@ class PrestamosController extends Controller
                 elseif($request->prestamo_paquetes == 'FG'){
                     //comparamos si en la base de datos hay generadores
                     if(Instrumento::where('nombre','=','GENERADOR')->get() != null){
-                        $prestamoNuevo = new Prestamo();
+                        //$prestamoNuevo = new Prestamo();
                         //buscamos los generadores disponibles en la base de datos
                         $instrumentos = Instrumento::where('nombre','=','GENERADOR')->get();
                         //verificamos que si se hallan encontrado generadores
@@ -248,6 +265,7 @@ class PrestamosController extends Controller
                                 if($contador < 2){
                                     $resta = $instrumento->cantidad - 1;
                                     $instrumento->cantidad = $resta;
+                                    /*
                                     $prestamoNuevo->user_id=$request->usuario_id;
                                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                     $prestamoNuevo->equipo_id=$instrumento->id;
@@ -255,18 +273,19 @@ class PrestamosController extends Controller
                                     $prestamoNuevo->cantidad_equipo=1;
                                     $prestamoNuevo->cantidad_componente=0;
                                     $prestamoNuevo->estado="ACTIVO";
-                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                    */
                                     $contador = $contador + 1;
                                     $instrumento->save();
                                 }   
                             }
 
-                            $prestamoNuevo->save();
+                            //$prestamoNuevo->save();
                         }
                     }
                     //buscamos si hay fuentes en las bases de datos
                     if(Instrumento::where('nombre','=','FUENTE')->get() != null){
-                        $prestamoNuevo = new Prestamo();
+                        //$prestamoNuevo = new Prestamo();
                         $instrumentos = Instrumento::where('nombre','=','FUENTE')->get();
                         //comparamos que se hayan encontrado fuentes o que no la variable $instrumentos no sea cero
                         if(sizeof($instrumentos) !=0){
@@ -275,6 +294,7 @@ class PrestamosController extends Controller
                                 if($contador < 2){
                                     $resta = $instrumento->cantidad - 1;
                                     $instrumento->cantidad = $resta;
+                                    /*
                                     $prestamoNuevo->user_id=$request->usuario_id;
                                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                     $prestamoNuevo->equipo_id=$instrumento->id;
@@ -282,20 +302,21 @@ class PrestamosController extends Controller
                                     $prestamoNuevo->cantidad_equipo=1;
                                     $prestamoNuevo->cantidad_componente=0;
                                     $prestamoNuevo->estado="ACTIVO";
-                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $prestamoNuevo->observaciones=strtoupper($request->observaciones);
+                                    */
                                     $contador = $contador + 1;
                                     $instrumento->save();
                                 }
                             }
 
-                            $prestamoNuevo->save();
+                            //$prestamoNuevo->save();
                         }
                     }
                 }
                 elseif($request->prestamo_paquetes == 'OG'){
                     //aqui agregamos el prestamo del osciloscopio y buscamos en la base de datos el osciloscopio y le restamos 1 a la cantidad que tiene disponible
                     if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
-                        $prestamoNuevo = new Prestamo();
+                        //$prestamoNuevo = new Prestamo();
                         $instrumentos = Instrumento::where('nombre','=','OSCILOSCOPIO')->get();
                         if(sizeof($instrumentos) !=0){
                             $contador=0;
@@ -303,6 +324,7 @@ class PrestamosController extends Controller
                                 if($contador < 2){
                                     $resta = $instrumento->cantidad - 1;
                                     $instrumento->cantidad = $resta;
+                                    /*
                                     $prestamoNuevo->user_id=$request->usuario_id;
                                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                     $prestamoNuevo->equipo_id=$instrumento->id;
@@ -310,17 +332,18 @@ class PrestamosController extends Controller
                                     $prestamoNuevo->cantidad_equipo=1;
                                     $prestamoNuevo->cantidad_componente=0;
                                     $prestamoNuevo->estado="ACTIVO";
-                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                    */
                                     $contador = $contador + 1;
                                     $instrumento->save();
                                 }
                             }
-                            $prestamoNuevo->save();
+                            //$prestamoNuevo->save();
                         }
                     }
                     //comparamos si en la base de datos hay generadores
                     if(Instrumento::where('nombre','=','GENERADOR')->get() != null){
-                        $prestamoNuevo = new Prestamo();
+                        //$prestamoNuevo = new Prestamo();
                         //buscamos los generadores disponibles en la base de datos
                         $instrumentos = Instrumento::where('nombre','=','GENERADOR')->get();
                         //verificamos que si se hallan encontrado generadores
@@ -332,6 +355,7 @@ class PrestamosController extends Controller
                                 if($contador < 2){
                                     $resta = $instrumento->cantidad - 1;
                                     $instrumento->cantidad = $resta;
+                                    /*
                                     $prestamoNuevo->user_id=$request->usuario_id;
                                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                                     $prestamoNuevo->equipo_id=$instrumento->id;
@@ -339,13 +363,14 @@ class PrestamosController extends Controller
                                     $prestamoNuevo->cantidad_equipo=1;
                                     $prestamoNuevo->cantidad_componente=0;
                                     $prestamoNuevo->estado="ACTIVO";
-                                    $prestamoNuevo->observaciones=$request->observaciones;
+                                    $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                                    */
                                     $contador = $contador + 1;
                                     $instrumento->save();
                                 }   
                             }
 
-                            $prestamoNuevo->save();
+                           // $prestamoNuevo->save();
                         }
                     }
                 }
@@ -358,13 +383,17 @@ class PrestamosController extends Controller
         for ($i=0; $i < sizeof($request->prestamo_equipos); $i++){
 
             if ($request->cantidad_del_equipo[$i]!=0){
-                $prestamoNuevo = new Prestamo();
+                //$prestamoNuevo = new Prestamo();
                 $instrumentos = Instrumento::where('id','=',$request->prestamo_equipos[$i])->get();
 
                 foreach ($instrumentos as $instrumento) {
 
                         $resta = $instrumento->cantidad - $request->cantidad_del_equipo[$i];
                         $instrumento->cantidad = $resta;
+
+                        $cosasPrestadas = $cosasPrestadas . $instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ' . $request->cantidad_del_equipo[$i] . "\n";
+
+                        /*
                         $prestamoNuevo->user_id=$request->usuario_id;
                         $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                         $prestamoNuevo->equipo_id=$instrumento->id;
@@ -372,11 +401,12 @@ class PrestamosController extends Controller
                         $prestamoNuevo->cantidad_equipo=$request->cantidad_del_equipo[$i];
                         $prestamoNuevo->cantidad_componente=0;
                         $prestamoNuevo->estado="ACTIVO";
-                        $prestamoNuevo->observaciones=$request->observaciones;
+                        $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                        */
 
                     $instrumento->save();
                 }
-                $prestamoNuevo->save();
+                //$prestamoNuevo->save();
             }
         }
 /*
@@ -385,7 +415,7 @@ class PrestamosController extends Controller
         for ($i=0; $i < sizeof($request->prestamo_componentes); $i++){
 
             if ($request->cantidad_del_componente[$i]!=0){
-                $prestamoNuevo = new Prestamo();
+                //$prestamoNuevo = new Prestamo();
 
                 $componentes = Componente::where('id','=',$request->prestamo_componentes[$i])->get();
 
@@ -393,6 +423,8 @@ class PrestamosController extends Controller
                     $resta = $componente->cantidad - $request->cantidad_del_componente[$i];
                     $componente->cantidad= $resta;
 
+                    $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_componente[$i] . "\n";
+                    /*
                     $prestamoNuevo->user_id=$request->usuario_id;
                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                     $prestamoNuevo->equipo_id=null;
@@ -400,18 +432,69 @@ class PrestamosController extends Controller
                     $prestamoNuevo->cantidad_equipo=0;
                     $prestamoNuevo->cantidad_componente=$request->cantidad_del_componente[$i];
                     $prestamoNuevo->estado="ACTIVO";
-                    $prestamoNuevo->observaciones=$request->observaciones;
-                    
+                    $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                    */                    
                     $componente->save();
                 }
-            $prestamoNuevo->save();
+            //$prestamoNuevo->save();
             }
         }
+
+        if (empty($request->cantidad_ohmios)) {
+            
+        }else{
+            $cosasPrestadas = 'Resistencias de Ω = ' . $request->cantidad_ohmios . "\n";
+        }
+
+        if (empty($request->cantidad_kiloohmios)) {
+            
+        }else{
+            $cosasPrestadas = 'Resistencias de kΩ = ' . $request->cantidad_kiloohmios . "\n";
+        }
+
+        if (empty($request->cantidad_miliohmios)) {
+            
+        }else{
+            $cosasPrestadas = 'Resistencias de MΩ = ' . $request->cantidad_miliohmios . "\n";
+        }
+
+        if (empty($request->cantidad_nanofaradios)) {
+            
+        }else{
+            $cosasPrestadas = 'Condensadores de nF = ' . $request->cantidad_nanofaradios . "\n";
+        }
+
+        if (empty($request->cantidad_picofaradios)) {
+            
+        }else{
+            $cosasPrestadas = 'Condensadores de pF = ' . $request->cantidad_picofaradios . "\n";
+        }
+
+        if (empty($request->cantidad_microfaradios)) {
+            
+        }else{
+            $cosasPrestadas = 'Condensadores de uF = ' . $request->cantidad_microfaradios . "\n";
+        }
+
+        if (empty($request->cantidad_inductor)) {
+            
+        }else{
+            $cosasPrestadas = 'Inductores de uH = ' . $request->cantidad_inductor . "\n";
+        }
+
+        if (empty($request->cantidad_potenciometro)) {
+            
+        }else{
+            $cosasPrestadas = 'Potenciometros de kΩ = ' . $request->cantidad_potenciometro . "\n";
+        }
+
+        
 /*
 * El siguiente metodo es para agregar las resistencias en OHMIOS como un prestamo individual
 */
+/*
         if ($request->cantidad_de_la_resistencia_ohmios!=0){
-            $prestamoNuevo = new Prestamo();
+            //$prestamoNuevo = new Prestamo();
             
             $componentes = Componente::where('referencia','=',$request->capacidad_ohmios . ' ' . 'Ω')->get();
 
@@ -419,6 +502,8 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_resistencia_ohmios;
                 $componente->cantidad= $resta;
 
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_ohmios . "\n";
+                /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                 $prestamoNuevo->equipo_id=null;
@@ -426,17 +511,20 @@ class PrestamosController extends Controller
                 $prestamoNuevo->cantidad_equipo=0;
                 $prestamoNuevo->cantidad_componente=$request->cantidad_de_la_resistencia_ohmios;
                 $prestamoNuevo->estado="ACTIVO";
-                $prestamoNuevo->observaciones=$request->observaciones;
-                
-                $componente->save();
-            }
-        $prestamoNuevo->save();
-        }
+                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                */
+                //$componente->save();
+            //}
+        //$prestamoNuevo->save();
+        //}
+
+
 /*
 * El siguiente metodo es para agregar las resistencias en KILO_OHMIOS como un prestamo individual
 */
+/*
         if ($request->cantidad_de_la_resistencia_kiloohmios!=0){
-            $prestamoNuevo = new Prestamo();
+            //$prestamoNuevo = new Prestamo();
             
             $componentes = Componente::where('referencia','=',$request->capacidad_kiloohmios . ' ' . 'KΩ')->get();
 
@@ -444,6 +532,8 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_resistencia_kiloohmios;
                 $componente->cantidad= $resta;
 
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_kiloohmios . "\n";
+                /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                 $prestamoNuevo->equipo_id=null;
@@ -451,17 +541,18 @@ class PrestamosController extends Controller
                 $prestamoNuevo->cantidad_equipo=0;
                 $prestamoNuevo->cantidad_componente=$request->cantidad_de_la_resistencia_kiloohmios;
                 $prestamoNuevo->estado="ACTIVO";
-                $prestamoNuevo->observaciones=$request->observaciones;
-                
-                $componente->save();
-            }
-        $prestamoNuevo->save();
-        }
+                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                */
+                //$componente->save();
+            //}
+        //$prestamoNuevo->save();
+       // }
 /*
 * El siguiente metodo es para agregar las resistencias en MEGA_OHMIOS como un prestamo individual
 */
+/*
         if ($request->cantidad_de_la_resistencia_megaohmios!=0){
-            $prestamoNuevo = new Prestamo();
+            //$prestamoNuevo = new Prestamo();
             
             $componentes = Componente::where('referencia','=',$request->capacidad_megaohmios . ' ' . 'MΩ')->get();
 
@@ -469,6 +560,9 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_resistencia_megaohmios;
                 $componente->cantidad= $resta;
 
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_megaohmios . "\n";
+
+                /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                 $prestamoNuevo->equipo_id=null;
@@ -476,17 +570,18 @@ class PrestamosController extends Controller
                 $prestamoNuevo->cantidad_equipo=0;
                 $prestamoNuevo->cantidad_componente=$request->cantidad_de_la_resistencia_megaohmios;
                 $prestamoNuevo->estado="ACTIVO";
-                $prestamoNuevo->observaciones=$request->observaciones;
-                
-                $componente->save();
-            }
-        $prestamoNuevo->save();
-        }
+                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                */                
+               // $componente->save();
+            //}
+        //$prestamoNuevo->save();
+        //}
 /*
 * El siguiente metodo es para agregar los CONDENSADORES en NANO_FARADIOS como un prestamo individual
 */
+/*
         if ($request->cantidad_de_la_condensadores_nanofaradios!=0){
-            $prestamoNuevo = new Prestamo();
+            //$prestamoNuevo = new Prestamo();
             
             $componentes = Componente::where('referencia','=',$request->capacidad_nanofaradios . ' ' . 'nF')->get();
 
@@ -494,6 +589,8 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_condensadores_nanofaradios;
                 $componente->cantidad= $resta;
 
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_condensadores_nanofaradios . "\n";
+                /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                 $prestamoNuevo->equipo_id=null;
@@ -501,18 +598,18 @@ class PrestamosController extends Controller
                 $prestamoNuevo->cantidad_equipo=0;
                 $prestamoNuevo->cantidad_componente=$request->cantidad_de_la_condensadores_nanofaradios;
                 $prestamoNuevo->estado="ACTIVO";
-                $prestamoNuevo->observaciones=$request->observaciones;
-                
-                $componente->save();
-            }
-        $prestamoNuevo->save();
-        }
-
+                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                */
+                //$componente->save();
+            //}
+        //$prestamoNuevo->save();
+        //}
 /*
 * El siguiente metodo es para agregar los CONDENSADORES en PICO_FARADIOS como un prestamo individual
 */
+/*
         if ($request->cantidad_del_condensador_picofaradios!=0){
-            $prestamoNuevo = new Prestamo();
+            //$prestamoNuevo = new Prestamo();
             
             $componentes = Componente::where('referencia','=',$request->capacidad_picofaradios . ' ' . 'pF')->get();
 
@@ -520,6 +617,8 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_del_condensador_picofaradios;
                 $componente->cantidad= $resta;
 
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_condensador_picofaradios . "\n";
+                /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                 $prestamoNuevo->equipo_id=null;
@@ -527,18 +626,19 @@ class PrestamosController extends Controller
                 $prestamoNuevo->cantidad_equipo=0;
                 $prestamoNuevo->cantidad_componente=$request->cantidad_del_condensador_picofaradios;
                 $prestamoNuevo->estado="ACTIVO";
-                $prestamoNuevo->observaciones=$request->observaciones;
-                
-                $componente->save();
-            }
-        $prestamoNuevo->save();
-        }
+                $prestamoNuevo->observaciones= strtoupper($request->observaciones);
+                */
+                //$componente->save();
+            //}
+        //$prestamoNuevo->save();
+        //}
 
 /*
 * El siguiente metodo es para agregar los CONDENSADORES en PICO_FARADIOS como un prestamo individual
 */
+/*
         if ($request->cantidad_del_condensador_microfaradios!=0){
-            $prestamoNuevo = new Prestamo();
+            //$prestamoNuevo = new Prestamo();
             
             $componentes = Componente::where('referencia','=',$request->capacidad_microfaradios . ' ' . 'uF')->get();
 
@@ -546,6 +646,8 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_del_condensador_microfaradios;
                 $componente->cantidad= $resta;
 
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_condensador_microfaradios . "\n";
+                /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
                 $prestamoNuevo->equipo_id=null;
@@ -553,12 +655,23 @@ class PrestamosController extends Controller
                 $prestamoNuevo->cantidad_equipo=0;
                 $prestamoNuevo->cantidad_componente=$request->cantidad_del_condensador_microfaradios;
                 $prestamoNuevo->estado="ACTIVO";
-                $prestamoNuevo->observaciones=$request->observaciones;
-                
-                $componente->save();
-            }
+                $prestamoNuevo->observaciones = strtoupper($request->observaciones);
+                */
+                //$componente->save();
+            //}
+        //$prestamoNuevo->save();
+        //}
+
+        $prestamoNuevo->user_id=$request->usuario_id;
+        $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
+        $prestamoNuevo->equipo_id=null;
+        $prestamoNuevo->componente_id=null;
+        $prestamoNuevo->cantidad_equipo=0;
+        $prestamoNuevo->cantidad_componente=0;
+        $prestamoNuevo->estado="ACTIVO";
+        $prestamoNuevo->elementos= strtoupper($cosasPrestadas);
+        $prestamoNuevo->observaciones = strtoupper($request->observaciones);
         $prestamoNuevo->save();
-        }
 
         return redirect()->route('admin.prestamos.index');
     }
@@ -610,7 +723,7 @@ class PrestamosController extends Controller
         }
 
         $prestamo->adicion=$var;
-        $prestamo->observaciones=$request->observaciones;
+        $prestamo->observaciones= strtoupper($request->observaciones);
 
         $prestamo->save();
 
@@ -625,9 +738,18 @@ class PrestamosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-       $prestamos=Prestamo::find($id);
+       $prestamo=Prestamo::find($id);
+       $instrumentos= DB::table('instrumentos')->get();
+       dd($instrumentos);
 
-        if($prestamos->equipo_id != null){
+        if($prestamo->elementos != null){
+
+            foreach ($instrumentos as $instrumento) {
+                $pos = strpos($prestamo->elementos, $instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ');
+                $cantidadLetras = strlen($instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ');
+
+                $instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ' . $request->cantidad_del_equipo[$i]
+            }
             $instrumento=Instrumento::find($prestamos->equipo_id);
             $suma = $prestamos->cantidad_equipo +  $instrumento->cantidad;
             $instrumento->cantidad=$suma;

@@ -45,7 +45,7 @@ class InstrumentosController extends Controller
         $instrumentos = new Instrumento($request->all());
         $instrumentos->nombre = strtoupper($request->nombre);
         $instrumentos->cantidad = $request->cantidad;
-        $instrumentos->descripcion = $request->descripcion;
+        $instrumentos->descripcion = strtoupper($request->descripcion);
         $instrumentos->tipo=strtoupper($request->tipo);
         $instrumentos->estado=strtoupper("disponible");
         $instrumentos->save();
@@ -89,7 +89,7 @@ class InstrumentosController extends Controller
         $instrumentos = Instrumento::find($id);
         $instrumentos->nombre = strtoupper($request->nombre);
         $instrumentos->cantidad = strtoupper($request->cantidad);
-        $instrumentos->descripcion = $request->descripcion;
+        $instrumentos->descripcion = strtoupper($request->descripcion);
         $instrumentos->tipo = strtoupper($request->tipo);
         $instrumentos->estado=strtoupper("disponible");
         $instrumentos->save();
