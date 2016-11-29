@@ -91,14 +91,14 @@ class PrestamosController extends Controller
     public function store(Request $request)
     {
         $prestamoNuevo = new Prestamo();
-        $cosasPrestadas = 'Se presto: ' . "\n";
+        $cosasPrestadas = "Se presto: " . "==>";
 /*
 * El siguiente metodo es para agregar los paquetes como un prestamo individual
 */
         if($request->prestamo_paquetes != ''){
             // Se lee el tamaño de letras que tiene el paquete seleccionado y caso de ser 3 entra aqui
             if(strlen($request->prestamo_paquetes) == 3){
-                $cosasPrestadas = $cosasPrestadas . $request->prestamo_paquetes . ' Cantidad= 1' . "\n";
+                $cosasPrestadas = $cosasPrestadas . $request->prestamo_paquetes . " Cantidad= 1" . "==>";
                 //aqui agregamos el prestamo del osciloscopio y buscamos en la base de datos el osciloscopio y le restamos 1 a la cantidad que tiene disponible
                 if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
                     //$prestamoNuevo = new Prestamo();
@@ -190,7 +190,7 @@ class PrestamosController extends Controller
             }
             //Comparamos si se eligieron paquetes solo con 2
             if(strlen($request->prestamo_paquetes) == 2){
-                $cosasPrestadas = $cosasPrestadas . $request->prestamo_paquetes . ' Cantidad= 1' . "\n";
+                $cosasPrestadas = $cosasPrestadas . $request->prestamo_paquetes . " Cantidad= 1" . "==>";
 
                 if($request->prestamo_paquetes == 'FO'){
                     if(Instrumento::where('nombre','=','OSCILOSCOPIO')->get() != null){
@@ -376,7 +376,6 @@ class PrestamosController extends Controller
                 }
             }
         }
-
 /*
 * El siguiente metodo es para agregar solo los equipos como un prestamo individual como un prestamo individual
 */
@@ -391,7 +390,7 @@ class PrestamosController extends Controller
                         $resta = $instrumento->cantidad - $request->cantidad_del_equipo[$i];
                         $instrumento->cantidad = $resta;
 
-                        $cosasPrestadas = $cosasPrestadas . $instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ' . $request->cantidad_del_equipo[$i] . "\n";
+                        $cosasPrestadas = $cosasPrestadas . $instrumento->nombre . ' ' . $instrumento->tipo . " Cantidad= " . $request->cantidad_del_equipo[$i] . "==>";
 
                         /*
                         $prestamoNuevo->user_id=$request->usuario_id;
@@ -423,7 +422,7 @@ class PrestamosController extends Controller
                     $resta = $componente->cantidad - $request->cantidad_del_componente[$i];
                     $componente->cantidad= $resta;
 
-                    $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_componente[$i] . "\n";
+                    $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . " Cantidad= " . $request->cantidad_del_componente[$i] . "==>";
                     /*
                     $prestamoNuevo->user_id=$request->usuario_id;
                     $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
@@ -443,49 +442,49 @@ class PrestamosController extends Controller
         if (empty($request->cantidad_ohmios)) {
             
         }else{
-            $cosasPrestadas = 'Resistencias de Ω = ' . $request->cantidad_ohmios . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Resistencias de Ω = " . $request->cantidad_ohmios . "==>";
         }
 
         if (empty($request->cantidad_kiloohmios)) {
             
         }else{
-            $cosasPrestadas = 'Resistencias de kΩ = ' . $request->cantidad_kiloohmios . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Resistencias de kΩ = " . $request->cantidad_kiloohmios . "==>";
         }
 
         if (empty($request->cantidad_miliohmios)) {
             
         }else{
-            $cosasPrestadas = 'Resistencias de MΩ = ' . $request->cantidad_miliohmios . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Resistencias de MΩ = " . $request->cantidad_miliohmios . "==>";
         }
 
         if (empty($request->cantidad_nanofaradios)) {
             
         }else{
-            $cosasPrestadas = 'Condensadores de nF = ' . $request->cantidad_nanofaradios . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Condensadores de nF = " . $request->cantidad_nanofaradios . "==>";
         }
 
         if (empty($request->cantidad_picofaradios)) {
             
         }else{
-            $cosasPrestadas = 'Condensadores de pF = ' . $request->cantidad_picofaradios . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Condensadores de pF = " . $request->cantidad_picofaradios . "==>";
         }
 
         if (empty($request->cantidad_microfaradios)) {
             
         }else{
-            $cosasPrestadas = 'Condensadores de uF = ' . $request->cantidad_microfaradios . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Condensadores de uF = " . $request->cantidad_microfaradios . "==>";
         }
 
         if (empty($request->cantidad_inductor)) {
             
         }else{
-            $cosasPrestadas = 'Inductores de uH = ' . $request->cantidad_inductor . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Inductores de uH = " . $request->cantidad_inductor . "==>";
         }
 
         if (empty($request->cantidad_potenciometro)) {
             
         }else{
-            $cosasPrestadas = 'Potenciometros de kΩ = ' . $request->cantidad_potenciometro . "\n";
+            $cosasPrestadas = $cosasPrestadas . " " . "Potenciometros de kΩ = " . $request->cantidad_potenciometro . "==>";
         }
 
         
@@ -502,7 +501,7 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_resistencia_ohmios;
                 $componente->cantidad= $resta;
 
-                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_ohmios . "\n";
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_ohmios . "==>";
                 /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
@@ -532,7 +531,7 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_resistencia_kiloohmios;
                 $componente->cantidad= $resta;
 
-                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_kiloohmios . "\n";
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_kiloohmios . "==>";
                 /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
@@ -560,7 +559,7 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_resistencia_megaohmios;
                 $componente->cantidad= $resta;
 
-                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_megaohmios . "\n";
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_resistencia_megaohmios . "==>";
 
                 /*
                 $prestamoNuevo->user_id=$request->usuario_id;
@@ -589,7 +588,7 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_de_la_condensadores_nanofaradios;
                 $componente->cantidad= $resta;
 
-                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_condensadores_nanofaradios . "\n";
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_de_la_condensadores_nanofaradios . "==>";
                 /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
@@ -617,7 +616,7 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_del_condensador_picofaradios;
                 $componente->cantidad= $resta;
 
-                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_condensador_picofaradios . "\n";
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_condensador_picofaradios . "==>";
                 /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
@@ -646,7 +645,7 @@ class PrestamosController extends Controller
                 $resta = $componente->cantidad - $request->cantidad_del_condensador_microfaradios;
                 $componente->cantidad= $resta;
 
-                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_condensador_microfaradios . "\n";
+                $cosasPrestadas = $cosasPrestadas . $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ' . $request->cantidad_del_condensador_microfaradios . "==>";
                 /*
                 $prestamoNuevo->user_id=$request->usuario_id;
                 $prestamoNuevo->estudiante_id = $request->estudiante_actual_id;
@@ -669,7 +668,7 @@ class PrestamosController extends Controller
         $prestamoNuevo->cantidad_equipo=0;
         $prestamoNuevo->cantidad_componente=0;
         $prestamoNuevo->estado="ACTIVO";
-        $prestamoNuevo->elementos= strtoupper($cosasPrestadas);
+        $prestamoNuevo->elementos= $cosasPrestadas;
         $prestamoNuevo->observaciones = strtoupper($request->observaciones);
         $prestamoNuevo->save();
 
@@ -740,36 +739,144 @@ class PrestamosController extends Controller
     public function destroy($id){
        $prestamo=Prestamo::find($id);
        $instrumentos= DB::table('instrumentos')->get();
-       dd($instrumentos);
+       $componentes= DB::table('componentes')->get();
 
         if($prestamo->elementos != null){
 
-            foreach ($instrumentos as $instrumento) {
+            foreach ($instrumentos as $instrumentoDeAyuda) {
+
+                $instrumento=Instrumento::find($instrumentoDeAyuda->id);
                 $pos = strpos($prestamo->elementos, $instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ');
-                $cantidadLetras = strlen($instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ');
 
-                $instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ' . $request->cantidad_del_equipo[$i]
+                if ($pos !== false) {
+                    $cantidadLetras = strlen($instrumento->nombre . ' ' . $instrumento->tipo . ' Cantidad= ');
+                    $posicionDondeIniciaLaCantidad = $pos + $cantidadLetras - 1;
+
+                    $cantidad = substr($prestamo->elementos, $posicionDondeIniciaLaCantidad + 1, 2);
+                    
+                    if(is_numeric($cantidad)) {
+                        $suma0 = $cantidad +  $instrumento->cantidad;
+                        $instrumento->cantidad=$suma0;
+                        $instrumento->save(); 
+                        $prestamo->estado="INACTIVO";
+                        $prestamo->save();
+
+                    }else{
+                        
+                        $cantidad1 = substr($prestamo->elementos, $posicionDondeIniciaLaCantidad + 1, 1);
+                        $suma1 = $cantidad1 +  $instrumento->cantidad;
+                        $instrumento->cantidad=$suma1;
+                        $instrumento->save(); 
+                        $prestamo->estado="INACTIVO";
+                        $prestamo->save();
+                    }
+                }
             }
-            $instrumento=Instrumento::find($prestamos->equipo_id);
-            $suma = $prestamos->cantidad_equipo +  $instrumento->cantidad;
-            $instrumento->cantidad=$suma;
-            $instrumento->save(); 
 
-            $prestamos->estado="INACTIVO";
-            $prestamos->save();
-       }
-       elseif ($prestamos->componente_id != null) {
-            $componente = Componente::find($prestamos->componente_id);       
-            $suma = $prestamos->cantidad_componente +  $componente->cantidad;
-            $componente->cantidad=$suma;
-            $componente->save();
+            foreach ($componentes as $componente) {
+                $pos2 = strpos($prestamo->elementos, $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ');
+                if ($pos2 !== false) {
+                    $cantidadLetras2 = strlen($componente->nombre . ' ' . $componente->referencia . ' Cantidad= ');
+                    $posicionDondeIniciaLaCantidad2 = $pos2 + $cantidadLetras2 - 1;
 
-            $prestamos->estado="INACTIVO";
-            $prestamos->save();
-       }
-       elseif($prestamos->paquetes != ""){
-            $prestamos->estado="INACTIVO";
-            $prestamos->save();
+                    $cantidad2 = substr($prestamo->elementos, $posicionDondeIniciaLaCantidad2, $posicionDondeIniciaLaCantidad2 + 1);
+                    if(is_numeric($cantidad2)) {
+                        $suma2 = $cantidad2 +  $componente->cantidad;
+                        $componente->cantidad=$suma2;
+                        $componente->save(); 
+                        $prestamo->estado="INACTIVO";
+                        $prestamo->save();
+
+                    }else{
+                        $cantidad2 = substr($prestamo->elementos, $posicionDondeIniciaLaCantidad2 + 1, 1);
+                        $suma2 = $cantidad2 +  $componente->cantidad;
+                        $componente->cantidad=$suma2;
+                        $componente->save(); 
+                        $prestamo->estado="INACTIVO";
+                        $prestamo->save();
+                    }
+                }
+            }
+
+            $posicionPaqueteFOG = strpos($prestamo->elementos, 'FOG');
+            $posicionPaqueteFO = strpos($prestamo->elementos, 'FO');
+            $posicionPaqueteFG = strpos($prestamo->elementos, 'FG');
+            $posicionPaqueteOG = strpos($prestamo->elementos, 'OG');
+
+            if($posicionPaqueteFOG !== false){
+                $instrumentoEncontrado1 = Instrumento::where('nombre', '=', 'FUENTE')->get();
+                foreach ($instrumentoEncontrado1 as $instrumento1) {
+                    $instrumento1->cantidad=$instrumento1->cantidad + 1;
+                    $instrumento1->save();
+                }
+
+                $instrumentoEncontrado2 = Instrumento::where('nombre', '=', 'OSCILOSCOPIO')->get();
+                foreach ($instrumentoEncontrado2 as $instrumento2) {
+                    $instrumento2->cantidad=$instrumento2->cantidad + 1;
+                    $instrumento2->save();
+                }
+
+                $instrumentoEncontrado3 = Instrumento::where('nombre', '=', 'GENERADOR')->get();
+                foreach ($instrumentoEncontrado3 as $instrumento3) {
+                    $instrumento3->cantidad=$instrumento3->cantidad + 1;
+                    $instrumento3->save();
+                }
+
+                $prestamo->estado="INACTIVO";
+                $prestamo->save();
+            }
+
+            if($posicionPaqueteFO !== false){
+                $instrumentoEncontrado4 = Instrumento::where('nombre', '=', 'FUENTE')->get();
+                foreach ($instrumentoEncontrado4 as $instrumento4) {
+                    $instrumento4->cantidad=$instrumento4->cantidad + 1;
+                    $instrumento4->save();
+                }
+
+                $instrumentoEncontrado5 = Instrumento::where('nombre', '=', 'OSCILOSCOPIO')->get();
+                foreach ($instrumentoEncontrado5 as $instrumento5) {
+                    $instrumento5->cantidad=$instrumento5->cantidad + 1;
+                    $instrumento5->save();
+                }
+
+                $prestamo->estado="INACTIVO";
+                $prestamo->save();
+            }
+
+            if($posicionPaqueteFG !== false){
+                $instrumentoEncontrado6 = Instrumento::where('nombre', '=', 'FUENTE')->get();
+                foreach ($instrumentoEncontrado6 as $instrumento6) {
+                    $instrumento6->cantidad=$instrumento6->cantidad + 1;
+                    $instrumento6->save();
+                }
+
+                $instrumentoEmcontrado7 = Instrumento::where('nombre', '=', 'GENERADOR')->get();
+                foreach ($instrumentoEncontrado7 as $instrumento7) {
+                    $instrumento7->cantidad=$instrumento7->cantidad + 1;
+                    $instrumento7->save();
+                }
+                
+                $prestamo->estado="INACTIVO";
+                $prestamo->save();
+
+            }
+
+            if($posicionPaqueteOG !== false){
+                $instrumentoEncontrado8 = Instrumento::where('nombre', '=', 'OSCILOSCOPIO')->get();
+                foreach ($instrumentoEncontrado8 as $instrumento8) {
+                    $instrumento8->cantidad=$instrumento8->cantidad + 1;
+                    $instrumento8->save();
+                }
+                
+                $instrumentoEncontrado9 = Instrumento::where('nombre', '=', 'GENERADOR')->get();
+                foreach ($instrumentoEncontrado9 as $instrumento9) {
+                    $instrumento9->cantidad=$instrumento9->cantidad + 1;
+                    $instrumento9->save();
+                }
+                
+                $prestamo->estado="INACTIVO";
+                $prestamo->save();
+            }           
        }
 
        return redirect()->route('admin.prestamos.index');
