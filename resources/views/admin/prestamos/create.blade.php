@@ -10,6 +10,8 @@
     </div>
 
     <div class="panel-registro">
+
+    <!-- METODO PARA BUSCAR EL ESTUDIANTE POR EL NUMERO DE DOCUMENTO-->
         <form class="form-horizontal" role="form" method="POST"
               action="{{ route('admin.prestamos.find') }}">
             {!! csrf_field() !!}
@@ -22,6 +24,8 @@
                 <a href="{{ url()->previous() }}" class="btn btn-default">Cancelar</a>
             </div>
         </form>
+
+    <!-- METODO PARA BUSCAR EL ESTUDIANTE POR SU NOMBRE-->
         <form class="form-horizontal" role="form" method="POST"
               action="{{ route('admin.prestamos.find1') }}">
             {!! csrf_field() !!}

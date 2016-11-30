@@ -9,6 +9,7 @@
         <div class="form-group">
             <a href="{{route('admin.prestamos.create')}}" class="btn btn-success">Nuevo Prestamo</a>
         </div>
+<!--
         <div class="form-group">
             <div class="form-group col-md-2">
                 <label >Osciloscopios: {{$osciloscopios}}</label>
@@ -20,7 +21,7 @@
                 <label >Fuentes: {{$fuentes}}</label>
             </div>
         </div>
-
+-->
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
@@ -131,14 +132,36 @@
                             <tr class="table-info">
                                 <td>{{$prestamo->nombre_estudiante ." ".$prestamo->apellido_estudiante}}</td>
                                 <td>{{$prestamo->name . " ". $prestamo->apellido}}</td>
-                                <td>{{$prestamo->elementos}}</td>
+                                <td>
+                                    <?php
+                                        $contadorPosiciones = 0;
+                                        $cadena = '';
+                                        $datosElementos = new SplFixedArray(strlen($prestamo->elementos));
+
+                                        for($i=0;$i<strlen($prestamo->elementos);$i++){
+
+                                            if($prestamo->elementos[$i] == '=' && $prestamo->elementos[$i+1] == '='){
+                                                $datosElementos[$contadorPosiciones] = $cadena;
+                                                $cadena = '';
+                                                $contadorPosiciones = $contadorPosiciones + 1;
+                                                $i = $i + 2;
+
+                                            }else{
+                                                $cadena = $cadena . $prestamo->elementos[$i];
+                                            }
+                                        }
+                                    ?>
+
+                                    @foreach($datosElementos as $dato)
+                                        <label style="font-size: 13px;">{{$dato}}</label><br>
+                                    @endforeach 
+                                </td>
                                 <td>{{$prestamo->observaciones}}</td>
                                 <td>{{$prestamo->created_at}}</td>
                                 <td>
-                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btn btn-danger">
+                                    <a href="{{ route('admin.prestamos.destroy',$prestamo->id) }}" class="btn btn-danger" onclick="return confirm('¿Seguro desea eliminarlo?')">
                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </a>
-
                                 </td>
                             </tr>
                         @endif
@@ -146,7 +169,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 </section>
 

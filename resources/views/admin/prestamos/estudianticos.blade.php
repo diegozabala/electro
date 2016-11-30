@@ -25,7 +25,6 @@
                     <td>{{$estudiante->nombre_estudiante}}</td>
                     <td>{{$estudiante->apellido_estudiante}}</td>
                     <td>{{$estudiante->numero_documento}}</td>
-                    <td>{{$estudiante->nombre}}</td>
                     <td>
                         <a href="{{route('admin.estudiantes.show',$estudiante->id)}}" class="btn btn-success"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                     </td>

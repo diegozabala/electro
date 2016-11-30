@@ -773,7 +773,9 @@ class PrestamosController extends Controller
                 }
             }
 
-            foreach ($componentes as $componente) {
+            foreach ($componentes as $componenteDeAyuda) {
+
+                $componente=Componente::find($componenteDeAyuda->id);
                 $pos2 = strpos($prestamo->elementos, $componente->nombre . ' ' . $componente->referencia . ' Cantidad= ');
                 if ($pos2 !== false) {
                     $cantidadLetras2 = strlen($componente->nombre . ' ' . $componente->referencia . ' Cantidad= ');
@@ -883,6 +885,11 @@ class PrestamosController extends Controller
 
    }
 
+    /*
+    *
+    * METODO PARA ENCONTRAR UN ESTUDIANTE POR EL NUMERO DE DOCUMENTO
+    *
+    */
     public function find(Request $request){
         $nombre=$request->codigo;
 
@@ -892,27 +899,36 @@ class PrestamosController extends Controller
         if (count($estudiante)==0){
             return view('errors.503');
             }
-        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
-
-
-        
-
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);        
     }
+
+    /*
+    *
+    * METODO PARA ENCONTRAR UN ESTUDIANTE POR EL NOMBRE O EL APELLIDO
+    *
+    */
+
     public function find1(Request $request){
         $nombre=$request->nombre;
 
         $instrumentos = Instrumento::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
+        $componentes = Componente::where('estado', '=', 'disponible')->orderBy('nombre', 'asc')->get();
         $estudiante = Estudiante::where('nombre_estudiante', 'LIKE', '%'.$nombre.'%')->get();
         if (count($estudiante)==0){
-            return view('errors.503');
+            $estudiante = Estudiante::where('apellido_estudiante', 'LIKE', '%'.$nombre.'%')->get();
+            if (count($estudiante)==0){
+                return view('errors.503');
+            }
+            elseif (count($estudiante)>1){
+                return view('admin/prestamos/estudianticos')->with('estudiantes',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
+            }
+            
         }
         elseif (count($estudiante)>1){
-            
-            
-            return view('admin/prestamos/profes')->with('estudiante',$estudiante);
+            return view('admin/prestamos/estudianticos')->with('estudiantes',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
         }
 
-        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos);
+        return view('admin/prestamos/find')->with('estudiante',$estudiante)->with('instrumentos',$instrumentos)->with('componentes',$componentes);
 
     }
     
